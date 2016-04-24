@@ -1,0 +1,24 @@
+extends ../layout.jade
+
+block content
+  p
+    a(href="/auth/login") Return
+  h2 Doctors Sign Up
+  form(action="/auth/signup" method="POST") 
+    p
+      label First Name
+      input(type="text" name="user[firstname]")
+    p
+      label Last Name
+      input(type="text" name="user[lastname]")
+    p
+      label Email
+      input(type="email" name="user[email]")
+    p
+      label Username
+      input(type="text" name="user[username]" autofocus)
+    p
+      label Password
+      input(type="password" name="user[password]")
+    p
+      input(type="submit" value="Sign Up")

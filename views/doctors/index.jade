@@ -1,0 +1,6 @@
+extends ../layout.jade
+
+block content
+  each doctor in doctors
+    p= doctor.username
+    p= doctor.password
