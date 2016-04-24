@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Document
+  link(rel="stylesheet", href="/css/1.css")
+body
+  #ex_name Red-Green Sliding Tranaglyph
+  
+  #ex_contain
+    img(id="red", class="tranaglyph", src="/images/redCircle.png", alt="redCircle.png")
+    img(id="green", class="tranaglyph", src="/images/greenCircle.png", alt="greenCircle.png")
+
+  form(id="slider")
+    span Closer 
+    input(style="width: 400px" type="range", name="difficulty", min="0", max="10", step="1", value="0") 
+    span  Further

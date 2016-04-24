@@ -1,0 +1,42 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  text-align: center;
+  vertical-align: center;
+  font-family: Courier;
+}
+
+#ex_name {
+  margin-top: 5%;
+  height: 10%;
+  font-size: 2.5em;
+}
+
+#ex_contain {
+  height: 60%;
+  display: flex;
+  align-items: center;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.tranaglyph {
+height: 250px;
+}
+
+#red {
+}
+
+#green {
+  margin-left: -250px;
+}
+
+#slider {
+  margin-top: 5%;
+  height: 15%;  
+  align-text: center;
+  font-size: 2em;
+}
+

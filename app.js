@@ -28,8 +28,9 @@ require('./helpers/passport');
 app.set('view engine', 'jade');
 
 // routers
+app.use('/patients/:patient_id/exercises', routes.exercises);
 app.use('/auth', routes.auth);
-app.use('/doctors', routes.doctors)
+app.use('/doctors', routes.doctors);
 
 app.get('/', function(req, res){
   res.render('homepage');
