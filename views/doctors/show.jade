@@ -11,7 +11,9 @@ block content
   p Email: #{currentUser.email}
 
   hr
-
-  each patient in patients
-    p= patient.childname
-    hr
+  h3 Welcome to Vision Therapy
+  a(href="/doctors/#{currentUser.id}/patients/new")
+    button Add Patient
+  //- each patient in doctor_patients
+  #patientCard
+  hr

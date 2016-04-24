@@ -15,13 +15,27 @@ router.get('/', function(req,res){
   })
 });
 
+
 // specific doctor's dashboard
 router.get('/:id', helpers.currentUser, function(req,res){
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
-    .where('doctors.id', req.params.id)
-    .then((patients) => {
-    res.render('doctors/show', {patients});
-  })
-});
+    .where('doctors.id', +req.params.id)
+    .then((doctor_patients) => {
+    res.format({
+      'text/html':() =>{
+        res.render('doctors/show', {doctor_patients});
+      },
+      'application/json':() =>{
+        res.send(doctor_patients)
+      },
+      'default': () => {
+        // log the request and respond with 406
+        res.status(406).send('Not Acceptable');
+      }
+    })
+  });
+})
+
+
 
 module.exports = router;
