@@ -11,3 +11,10 @@ Username: mary
 Patient: Jimmy
 
 BCRYPT FOR PASSWORD DISABLED, can log in with username and any non-empty password
+
+Setup:
+npm install
+createdb project2_app
+knex migrate:latest
+knex seed:run
+generate-secret --yes

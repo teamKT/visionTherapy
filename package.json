@@ -24,5 +24,9 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^4.5.3"
+  },
+  "devDependencies": {
+    "locus": "^1.2.0",
+    "morgan": "^1.7.0"
   }
 }
