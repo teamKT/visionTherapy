@@ -37,11 +37,19 @@ router.post('/doctor-login', passport.authenticate('local', {
   failureRedirect: '/auth/login'
 }));
 
-// after successful login, redirect to patient dashboard
+// after successful login, redirect to /auth/patients to be further redirected
 router.post('/patient-login', passport.authenticate('local', {
-  successRedirect: '/patients/',
+  successRedirect: '/auth/patients/',
   failureRedirect: '/auth/login'
 }));
+
+// redirects patient to right page
+router.get('/patients', (req,res) => {
+  knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
+    .where('patients.id', req.user.id).first().then(function(data){
+      res.redirect('/doctors/' + data.doctor_id + '/patients/' + req.user.id)      
+    })
+});
 
 // logout passport session
 router.get('/logout', (req,res) => {

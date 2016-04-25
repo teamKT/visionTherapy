@@ -2,6 +2,7 @@ const passport = require('passport')
 const passportLocal = require("passport-local");
 const knex = require('../db/knex');
 const bcrypt = require('bcrypt');
+var isDoctor = false;
 
 passport.use(new passportLocal.Strategy({
   usernameField: 'user[username]',
@@ -18,6 +19,7 @@ passport.use(new passportLocal.Strategy({
         //   return done (null, false);
         // }
         else {
+          isDoctor = true;
           return done(null, user);
         }
       }).catch((err) => {
@@ -34,6 +36,7 @@ passport.use(new passportLocal.Strategy({
         // }
         else {
           return done(null, user);
+          isDoctor = false;
         }
       }).catch((err) => {
         return done(err)
@@ -47,12 +50,21 @@ passport.serializeUser((user, done) =>{
 });
 
 passport.deserializeUser((id, done) =>{
-  knex('doctors').where({id}).first()
-    .then((user) =>{
-      done(null, user);
-    }).catch((err) =>{
-      done(err,null);
-    });
+  if (isDoctor) {
+    knex('doctors').where({id}).first()
+      .then((user) =>{
+        done(null, user);
+      }).catch((err) =>{
+        done(err,null);
+      });
+  } else if (!isDoctor) {
+    knex('patients').where({id}).first()
+      .then((user) =>{
+        done(null, user);
+      }).catch((err) =>{
+        done(err,null);
+      });
+  }
 });
 
 module.exports = passport;
