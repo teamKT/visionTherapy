@@ -7,8 +7,10 @@ window.PatientCard = React.createClass({
   },
 
   componentWillMount(){
-
+    // get id of current user from server
     $.getJSON("/auth/userid").done(function(data){
+      this.setState({userid: data.userid})
+      // request data for doctor dashboard
       $.getJSON(`/doctors/${data.userid}`).then(function(doctor_patients) {
           this.setState({doctor_patients})
       }.bind(this),"json")
