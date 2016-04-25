@@ -21,4 +21,12 @@ router.get('/', helpers.currentUser, (req,res) => {
   });
 })
 
+router.get('/:id', helpers.currentUser, (req,res) => {
+  knex('patients').join('exercises', 'patients.id', 'exercises.patient_id')
+    .where('patients.id', +req.params.id)
+    .then((patient_exercises)=>{
+      res.render('patients/show', {patient_exercises});    
+    })
+});
+
 module.exports = router;

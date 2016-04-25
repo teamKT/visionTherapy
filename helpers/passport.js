@@ -8,20 +8,37 @@ passport.use(new passportLocal.Strategy({
   passwordField: 'user[password]',
   passReqToCallback : true
 },(req, username, password, done) =>{
-    knex('doctors').where({username}).first().then((user) =>{
-      if (!user) {
-        return done(null, false);
-      }
-      // DISABLED PASSWORD MATCHING FOR SIGNING IN
-      // if (!bcrypt.compareSync(password, user.password)) {
-      //   return done (null, false);
-      // }
-      else {
-        return done(null, user);
-      }
-    }).catch((err) => {
-      return done(err)
-    })
+    if (req.originalUrl === '/auth/doctor-login') {
+      knex('doctors').where({username}).first().then((user) =>{
+        if (!user) {
+          return done(null, false);
+        }
+        // DISABLED PASSWORD MATCHING FOR SIGNING IN
+        // if (!bcrypt.compareSync(password, user.password)) {
+        //   return done (null, false);
+        // }
+        else {
+          return done(null, user);
+        }
+      }).catch((err) => {
+        return done(err)
+      })      
+    } else if (req.originalUrl === '/auth/patient-login') {
+      knex('patients').where({username}).first().then((user) =>{
+        if (!user) {
+          return done(null, false);
+        }
+        // DISABLED PASSWORD MATCHING FOR SIGNING IN
+        // if (!bcrypt.compareSync(password, user.password)) {
+        //   return done (null, false);
+        // }
+        else {
+          return done(null, user);
+        }
+      }).catch((err) => {
+        return done(err)
+      })
+    }
   }
 ));
 

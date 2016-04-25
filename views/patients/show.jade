@@ -1,0 +1,18 @@
+extends ../layout.jade
+
+block content
+  p
+    a(href="/auth/logout") Log Out
+  h1 Patient #{currentUser.id} Dashboard 
+  p FirstName: #{currentUser.firstname}
+  p LastName: #{currentUser.lastname}
+  p Username: #{currentUser.username}
+  p Email: #{currentUser.email}
+
+  hr
+  h3 Welcome to Vision Therapy
+  a(href="/doctors/#{currentUser.id}/patients/new")
+    button Add Patient
+  //- each patient in doctor_patients
+  #patientCard
+  hr

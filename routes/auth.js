@@ -31,9 +31,15 @@ router.get('/login', function(req,res){
   res.render('auth/login')
 });
 
-// after successful login, redirect to doctors index
+// after successful login, redirect to doctors dashboard
 router.post('/doctor-login', passport.authenticate('local', {
   successRedirect: '/doctors/',
+  failureRedirect: '/auth/login'
+}));
+
+// after successful login, redirect to patient dashboard
+router.post('/patient-login', passport.authenticate('local', {
+  successRedirect: '/patients/',
   failureRedirect: '/auth/login'
 }));
 
