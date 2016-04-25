@@ -15,7 +15,6 @@ router.get('/', function(req,res){
   })
 });
 
-
 // specific doctor's dashboard
 router.get('/:id', helpers.currentUser, function(req,res){
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
@@ -36,6 +35,17 @@ router.get('/:id', helpers.currentUser, function(req,res){
   });
 })
 
+router.get('/:id/edit', helpers.currentUser, function(req,res){
+  res.render('doctors/edit');
+})
+
+router.delete('/:id', function(req,res){
+  knex('doctors').del().where('doctors.id', +req.params.id)
+    .then(()=>{
+      req.logout();
+      res.redirect('/');      
+    })
+})
 
 
 module.exports = router;
