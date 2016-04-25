@@ -29,7 +29,6 @@ app.set('view engine', 'jade');
 
 // routers
 app.use('/auth', routes.auth);
-app.use('/doctors/:doctor_id/patients', routes.patients)
 app.use('/doctors', routes.doctors)
 
 app.get('/', function(req, res){
