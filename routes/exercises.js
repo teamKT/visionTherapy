@@ -4,9 +4,7 @@ const knex = require("../db/knex");
 const helpers = require('../helpers/authHelpers');
 
 router.get('/:exercise_id', (req, res) => {
-  res.render(`exercises/${req.params.exercise_id}`);
+  res.render(`exercises/ex${req.params.exercise_id}`);
 });
-
-
 
 module.exports = router;

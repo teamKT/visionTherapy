@@ -1,4 +1,4 @@
-html, body {
+html, body, #container, #innerContain {
   height: 100%;
 }
 
@@ -15,11 +15,12 @@ body {
 }
 
 #ex_contain {
-  height: 60%;
+  min-height: 60%;
   display: flex;
   align-items: center;
   margin-left: 20%;
   margin-right: 20%;
+  justify-content: center;
 }
 
 .tranaglyph {
@@ -30,13 +31,18 @@ height: 250px;
 }
 
 #green {
-  margin-left: -250px;
-}
+/*  margin-left: -250px;
+*/}
 
 #slider {
   margin-top: 5%;
   height: 15%;  
   align-text: center;
   font-size: 2em;
+}
+
+input[type=range] {
+  width: 50%;
+  max-width: 480px;
 }
 
