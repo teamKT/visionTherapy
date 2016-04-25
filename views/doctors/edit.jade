@@ -1,0 +1,15 @@
+extends ../layout.jade
+
+block content
+  p
+    a(href="/auth/logout") Log Out
+  h1 Settings for Doctor #{currentUser.id} 
+    span.settings
+      a(href="/doctors/#{currentUser.id}") Return
+
+  p FirstName: #{currentUser.firstname}
+  p LastName: #{currentUser.lastname}
+  p Username: #{currentUser.username}
+  p Email: #{currentUser.email}
+  form(action="/doctors/#{currentUser.id}?_method=DELETE" method="POST")
+    input(type="submit" value="DELETE ACCOUNT")
