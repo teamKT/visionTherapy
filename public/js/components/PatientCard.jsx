@@ -1,16 +1,20 @@
 window.PatientCard = React.createClass({
   getInitialState(){
     return {
-      doctor_patients: []
+      doctor_patients: [],
+      userid: ""
     }
   },
 
   componentWillMount(){
-    // ID still hardcoded
-    $.getJSON("/doctors/1").then(function(doctor_patients){
-    console.log(JSON.stringify(doctor_patients));
-      this.setState({doctor_patients})
-    }.bind(this),"json")
+    // get id of current user from server
+    $.getJSON("/auth/userid").done(function(data){
+      this.setState({userid: data.userid})
+      // request data for doctor dashboard
+      $.getJSON(`/doctors/${data.userid}`).then(function(doctor_patients) {
+          this.setState({doctor_patients})
+      }.bind(this),"json")
+    }.bind(this),'json')
   },
 
 
@@ -30,6 +34,7 @@ window.PatientCard = React.createClass({
   },
   
   render(){
+    console.log("DOCTOR PATIENTS", this.state.doctor_patients)
     var patientInfo = this.state.doctor_patients.map(function(patient) {
       return <PatientInfo
           childname={patient.childname}
