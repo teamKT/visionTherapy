@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  h1 New Patient
+  form.form-group(action="/doctors/#{currentUser.id}/patients" method="POST")
+    p
+      input(type="text" name="patient[childname]" placeholder="Enter Child Name")
+    p
+      input(type="text" name="patient[username]" placeholder="Enter Child's Screen Name")
+    p
+      input(type="text" name="patient[parentname]" placeholder="Enter Parent Name")
+    p
+      input.btn.btn-default(type="submit" value="Submit")
