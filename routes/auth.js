@@ -43,4 +43,11 @@ router.get('/logout', (req,res) => {
   res.redirect('/auth/login');
 });
 
+//Return the session value when the client checks
+router.get('/userid', function(req,res){
+  console.log("# Current User ID check "+ req.user.id);
+  res.json({userid: req.user.id})
+});
+
+
 module.exports = router;
