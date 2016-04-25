@@ -5,6 +5,9 @@ const helpers = require('../helpers/authHelpers');
 
 // PatientInfo
 router.get('/', helpers.currentUser, (req,res) => {
+  if(req.isAuthenticated()){
+    res.redirect(`/doctors/${req.params.doctor_id}/patients/${req.user.id}`)
+  }
   knex('patients').where('doctor_id',+req.params.doctor_id).then((patients) => {
     res.format({
       'text/html':() =>{
@@ -22,10 +25,12 @@ router.get('/', helpers.currentUser, (req,res) => {
 })
 
 router.get('/:id', helpers.currentUser, (req,res) => {
-  knex('patients').join('exercises', 'patients.id', 'exercises.patient_id')
+  knex('patients')
+    .join('plans', 'patients.id', 'plans.patient_id')
+    .join('exercises', 'exercises.id', 'plans.exercise_id')
     .where('patients.id', +req.params.id)
-    .then((patient_exercises)=>{
-      res.render('patients/show', {patient_exercises});    
+    .then((patient_plans)=>{
+      res.render('patients/show', {patient_plans});    
     })
 });
 

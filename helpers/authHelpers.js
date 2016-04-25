@@ -7,7 +7,7 @@ const authHelpers = {
     else {
       return next();
     }
-  } 
+  }
 }
 
 module.exports = authHelpers;
