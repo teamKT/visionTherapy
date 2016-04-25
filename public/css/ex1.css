@@ -24,15 +24,9 @@ body {
 }
 
 .tranaglyph {
-height: 250px;
+  height: 250px;
+  mix-blend-mode: multiply;
 }
-
-#red {
-}
-
-#green {
-/*  margin-left: -250px;
-*/}
 
 #slider {
   margin-top: 5%;

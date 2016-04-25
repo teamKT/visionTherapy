@@ -21,8 +21,8 @@ window.Ex1 = React.createClass({
       <div id="innerContain">
         <div id="ex_name">Red-Green Tranaglyphs: Steps</div>
         <div id="ex_contain">
-          <img  className="tranaglyph" id="red" src="/images/redCircle.png" alt="redCircle.png"/>
-          <img style={style} className="tranaglyph" id="green" src="/images/greenCircle.png" alt="greenCircle.png"/>
+          <img  className="tranaglyph" src="/images/redCircle.png" alt="redCircle.png"/>
+          <img style={style} className="tranaglyph" src="/images/greenCircle.png" alt="greenCircle.png"/>
         </div>
         <form id="slider">
           <span>Closer </span>
