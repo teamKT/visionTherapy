@@ -5,6 +5,7 @@ const helpers = require('../helpers/authHelpers');
 
 // PatientInfo
 
+
 router.get('/', helpers.currentUser, (req,res) => {
   if(req.isAuthenticated()){
     res.redirect(`/doctors/${req.params.doctor_id}/patients/${req.user.id}`)
@@ -75,4 +76,4 @@ router.put('/:id', helpers.currentUser, (req, res) => {
 });
 
 module.exports = router;
->>>>>>> added patient routes and add patient on doc dash
+
