@@ -26,6 +26,7 @@ router.get('/', helpers.currentUser, (req,res) => {
   });
 })
 
+
 router.get('/:id', helpers.currentUser, (req,res) => {
   knex('patients')
     .join('plans', 'patients.id', 'plans.patient_id')
@@ -35,7 +36,6 @@ router.get('/:id', helpers.currentUser, (req,res) => {
       res.render('patients/show', {patient_plans});    
     })
 });
-
 
 //EDIT
 router.get('/edit/:id', helpers.currentUser, (req, res) => {
@@ -68,6 +68,7 @@ router.post('/', helpers.currentUser, (req, res) => {
 
 
 // PUT
+//// this needs more work
 router.put('/:id', helpers.currentUser, (req, res) => {
     knex('patients').update(req.body.patient).where('id', +req.params.id)
         .then(() => {
@@ -75,5 +76,33 @@ router.put('/:id', helpers.currentUser, (req, res) => {
         });
 });
 
-module.exports = router;
+// DELETE
 
+router.delete('/:id', helpers.currentUser, (req, res) => {
+    knex('patients').where('id', +req.params.id).del().returning('doctor_id')
+        .then((doctor_id) => {
+          console.log("What do we get back?", doctor_id)
+            knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
+                .where('doctors.id', doctor_id[0])
+                .then((data) => {
+                  res.format({
+                    'text/html': () => {
+                        res.redirect('/')
+                    },
+                    'application/json': () => {
+                        console.log("DATA from DEL: ", JSON.stringify(data));
+                        res.send(data)
+                    },
+                    'default': () => {
+                        // log the request and respond with 406
+                        res.status(406).send('Not Acceptable');
+                    }
+                  })
+                })
+        })
+});
+
+
+
+
+module.exports = router;

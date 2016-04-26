@@ -31,7 +31,7 @@ exports.seed = function(knex, Promise) {
     knex('plans').insert({
       id: 4,
       doctor_id: 2, 
-      patient_id: 1, 
+      patient_id: 3, 
       exercise_id: 2, 
       routine: 'Jimmy needs to do the steps',
       outcome: 'secret',
