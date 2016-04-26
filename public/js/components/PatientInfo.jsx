@@ -2,7 +2,7 @@
 
   deletePatient(){
     // this.props.deletePatient(this.props.patient_id)
-
+    console.log("userid in deletePatient" + this.userid);
     $.ajax({
       method: "DELETE",
       url: `/doctors/${this.userid}/patients/${this.props.patient_id}`,

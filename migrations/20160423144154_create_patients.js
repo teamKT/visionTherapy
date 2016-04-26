@@ -2,6 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('patients', function(table){
     table.increments();
+    table.boolean('isDoctor');
     table.text('childname');
     table.text('parentname');
     table.text('username').unique();

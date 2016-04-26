@@ -2,7 +2,7 @@ exports.seed = function(knex, Promise) {
   return Promise.all([
     knex('patients').del(),
     knex('patients').insert({
-      id: 1,
+      isDoctor: false,
       childname: 'Timmy', 
       parentname: 'Tom', 
       username: 'timmy', 
@@ -10,7 +10,7 @@ exports.seed = function(knex, Promise) {
       doctor_id: 1
     }),
     knex('patients').insert({
-      id: 2,
+      isDoctor: false,
       childname: 'Kimmy', 
       parentname: 'Kim', 
       username: 'kimmy', 
@@ -18,7 +18,7 @@ exports.seed = function(knex, Promise) {
       doctor_id: 1
     }),
     knex('patients').insert({
-      id: 3,
+      isDoctor: false,
       childname: 'Jimmy', 
       parentname: 'Jim', 
       username: 'jimmy', 
