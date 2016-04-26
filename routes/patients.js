@@ -6,6 +6,7 @@ const helpers = require('../helpers/authHelpers');
 // PatientInfo
 
 
+
 router.get('/', helpers.currentUser, (req,res) => {
   if(req.isAuthenticated()){
     res.redirect(`/doctors/${req.params.doctor_id}/patients/${req.user.id}`)
@@ -36,6 +37,7 @@ router.get('/:id', helpers.currentUser, (req,res) => {
       res.render('patients/show', {patient_plans});    
     })
 });
+
 
 //EDIT
 router.get('/edit/:id', helpers.currentUser, (req, res) => {
@@ -68,13 +70,14 @@ router.post('/', helpers.currentUser, (req, res) => {
 
 
 // PUT
-//// this needs more work
+// needs work
 router.put('/:id', helpers.currentUser, (req, res) => {
     knex('patients').update(req.body.patient).where('id', +req.params.id)
         .then(() => {
             res.redirect(`/doctors/${req.params.doctor_id}`)
         });
 });
+
 
 // DELETE
 
@@ -101,6 +104,7 @@ router.delete('/:id', helpers.currentUser, (req, res) => {
                 })
         })
 });
+
 
 
 
