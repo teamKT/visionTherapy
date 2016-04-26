@@ -22,7 +22,8 @@ window.PatientCard = React.createClass({
 
   },
 
-  removePatient(event){
+  deletePatient(doctor_patients){
+    this.setState({doctor_patients: doctor_patients})
 
   },
   addExercise(event){
@@ -39,8 +40,11 @@ window.PatientCard = React.createClass({
       return <PatientInfo
           childname={patient.childname}
           parentname={patient.parentname}
-          index={patient.id}
+          patient_id={patient.id}
           key={patient.id}
+          editPatient={this.editPatient}
+          deletePatient={this.deletePatient}
+
           />
         },this);
 

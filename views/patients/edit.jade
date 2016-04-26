@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  h1 Edit Patient
+  form.form-group(action="/doctors/#{currentUser.id}/patients/#{patient.id}?_method=put" method="POST")
+    p
+      input(type="text" name="patient[childname]"  value="#{patient.childname}" placeholder="Enter Child Name")
+    p
+      input(type="text" name="patient[username]"  value="#{patient.username}" placeholder="Enter Child Screen Name")
+    p
+      input(type="text" name="patient[parentname]"  value="#{patient.parentname}" placeholder="Enter Parent Name")
+    p
+      input.btn.btn-default(type="submit" value="Submit")
+    a(href="/doctors/#{currentUser.id}")
+      button.btn.btn-default Cancel
