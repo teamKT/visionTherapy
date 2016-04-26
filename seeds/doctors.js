@@ -2,7 +2,7 @@ exports.seed = function(knex, Promise) {
   return Promise.all([
     knex('doctors').del(),
     knex('doctors').insert({
-      id: 1,
+      isDoctor: true,
       firstname: 'Joe', 
       lastname: 'Smith', 
       email: 'joe@gmail.com', 
@@ -10,7 +10,7 @@ exports.seed = function(knex, Promise) {
       password: 'secret'
     }),
     knex('doctors').insert({
-      id: 2,
+      isDoctor: true,
       firstname: 'Mary', 
       lastname: 'Smith', 
       email: 'mary@gmail.com', 

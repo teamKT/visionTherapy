@@ -4,8 +4,9 @@ const knex = require("../db/knex");
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 const passport = require("passport");
+const helpers = require("../helpers/authHelpers")
 
-router.get('/signup', function(req,res){
+router.get('/signup', helpers.signedOn, function(req,res){
   res.render('auth/signup')
 });
 
@@ -27,15 +28,20 @@ router.post('/signup', function(req,res){
   });
 });
 
-router.get('/login', function(req,res){
+router.get('/login', helpers.signedOn, function(req,res){
   res.render('auth/login')
 });
 
 // after successful login, redirect to doctors dashboard
 router.post('/doctor-login', passport.authenticate('local', {
-  successRedirect: '/doctors/',
+  successRedirect: '/auth/doctors',
   failureRedirect: '/auth/login'
 }));
+
+// 
+router.get('/doctors', (req,res) => {
+  res.redirect('/doctors/' + req.user.id)
+});
 
 // after successful login, redirect to /auth/patients to be further redirected
 router.post('/patient-login', passport.authenticate('local', {

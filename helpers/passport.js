@@ -2,7 +2,6 @@ const passport = require('passport')
 const passportLocal = require("passport-local");
 const knex = require('../db/knex');
 const bcrypt = require('bcrypt');
-var isDoctor = false;
 
 passport.use(new passportLocal.Strategy({
   usernameField: 'user[username]',
@@ -19,7 +18,6 @@ passport.use(new passportLocal.Strategy({
         //   return done (null, false);
         // }
         else {
-          isDoctor = true;
           return done(null, user);
         }
       }).catch((err) => {
@@ -36,7 +34,6 @@ passport.use(new passportLocal.Strategy({
         // }
         else {
           return done(null, user);
-          isDoctor = false;
         }
       }).catch((err) => {
         return done(err)
@@ -46,19 +43,35 @@ passport.use(new passportLocal.Strategy({
 ));
 
 passport.serializeUser((user, done) =>{
-  done(null, user.id);
+  if(user.isDoctor) {
+    delete user.firstname;
+    delete user.lastname;
+    delete user.email;
+    delete user.username;
+    delete user.password;
+    delete user.created_at;
+    done(null, user);
+  } else if (!user.isDoctor) {
+    delete user.childname;
+    delete user.parentname;
+    delete user.username;
+    delete user.password;
+    delete user.doctor_id;
+    delete user.created_at;
+    done(null, user);
+  }
 });
 
-passport.deserializeUser((id, done) =>{
-  if (isDoctor) {
-    knex('doctors').where({id}).first()
+passport.deserializeUser((user, done) =>{
+  if (user.isDoctor) {
+    knex('doctors').where({id: user.id}).first()
       .then((user) =>{
         done(null, user);
       }).catch((err) =>{
         done(err,null);
       });
-  } else if (!isDoctor) {
-    knex('patients').where({id}).first()
+  } else if (!user.isDoctor) {
+    knex('patients').where({id: user.id}).first()
       .then((user) =>{
         done(null, user);
       }).catch((err) =>{

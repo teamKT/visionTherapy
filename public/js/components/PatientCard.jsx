@@ -17,7 +17,6 @@ window.PatientCard = React.createClass({
     }.bind(this),'json')
   },
 
-
   addPatient(event){
 
   },

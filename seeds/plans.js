@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
       patient_id: 1, 
       exercise_id: 1, 
       routine: 'Timmy needs to do the slide',
-      outcome: 'secret',
+      outcome: 'hooray',
       parent_comments: 'Timmy did it'
     }),
     knex('plans').insert({
@@ -16,7 +16,7 @@ exports.seed = function(knex, Promise) {
       patient_id: 1, 
       exercise_id: 2, 
       routine: 'Timmy needs to do the steps',
-      outcome: 'secret',
+      outcome: 'doing ok',
       parent_comments: 'Timmy was a bit slow'
     }),
     knex('plans').insert({
@@ -25,7 +25,7 @@ exports.seed = function(knex, Promise) {
       patient_id: 2, 
       exercise_id: 1, 
       routine: 'Kimmy needs to do the slide',
-      outcome: 'secret',
+      outcome: 'finished',
       parent_comments: 'Kimmy was a bit slow'
     }),
     knex('plans').insert({
@@ -34,7 +34,7 @@ exports.seed = function(knex, Promise) {
       patient_id: 3, 
       exercise_id: 2, 
       routine: 'Jimmy needs to do the steps',
-      outcome: 'secret',
+      outcome: 'ok',
       parent_comments: 'Jimmy was a boss'
     }),
   ]);

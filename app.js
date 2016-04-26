@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const session = require('cookie-session');
 const passport = require('passport')
 const routes = require('./routes/index');
+const helpers = require('./helpers/authHelpers')
 
 // use middleware
 app.use(morgan('tiny'));
@@ -33,7 +34,7 @@ app.use('/doctors/:doctor_id/patients', routes.patients);
 app.use('/auth', routes.auth);
 app.use('/doctors', routes.doctors);
 
-app.get('/', function(req, res){
+app.get('/', helpers.signedOn, function(req, res){
   res.render('homepage');
 });
 

@@ -3,20 +3,21 @@ const router = express.Router()
 const knex = require("../db/knex");
 const helpers = require('../helpers/authHelpers');
 
-// doctors index
+router.use(helpers.isDoctor);
+router.use(helpers.currentUser);
+
+// doctors index for DEV ENVIRONMENT
 router.get('/', function(req,res){
-  // if authenticated, cannot access index of doctors, 
-  // will redirect to specific doctor's dashboard
-  if(req.isAuthenticated()){
-    res.redirect('/doctors/' + req.user.id)
-  }
+  // if(req.isAuthenticated()){
+  //   res.redirect(`/doctors/${req.user.id}`)
+  // }
   knex('doctors').then((doctors) => {
-    res.render('doctors/index', {doctors});
+    res.send(doctors);
   })
 });
 
-// specific doctor's dashboard
-router.get('/:id', helpers.currentUser, function(req,res){
+// VIEW doctor's dashboard
+router.get('/:id', helpers.ensureCorrectUser, function(req,res){
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
     .where('doctors.id', +req.params.id)
     .then((doctor_patients) => {
@@ -35,10 +36,12 @@ router.get('/:id', helpers.currentUser, function(req,res){
   });
 })
 
-router.get('/:id/edit', helpers.currentUser, function(req,res){
+// EDIT Doctor
+router.get('/:id/edit', helpers.ensureCorrectUser, function(req,res){
   res.render('doctors/edit');
 })
 
+// DELETE Doctor
 router.delete('/:id', function(req,res){
   knex('doctors').del().where('doctors.id', +req.params.id)
     .then(()=>{
