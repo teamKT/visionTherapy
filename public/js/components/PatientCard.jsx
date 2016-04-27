@@ -9,15 +9,20 @@ window.PatientCard = React.createClass({
   componentWillMount(){
     // get id of current user from server
     $.getJSON("/auth/userid").done(function(data){
+  
       this.setState({userid: data.userid})
       // request data for doctor dashboard
-      $.getJSON(`/doctors/${data.userid}`).then(function(doctor_patients) {
+      console.log("USERID at MOUNT: ", this.state.userid)
+      $.getJSON(`/doctors/${this.state.userid}`).then(function(doctor_patients) {
           this.setState({doctor_patients})
       }.bind(this),"json")
     }.bind(this),'json')
   },
 
-  addPatient(event){
+
+  editPatient(doctor_patients){
+
+    this.setState({doctor_patients: doctor_patients})
 
   },
 
@@ -25,11 +30,14 @@ window.PatientCard = React.createClass({
     this.setState({doctor_patients: doctor_patients})
   },
 
-  addExercise(event){
 
-  },
+  handleChange(value){
 
-  removeExercise(event){
+  console.log('Value gotten back from the child: ' + value);
+  debugger
+    this.setState({
+      childname: value
+    });
 
   },
   
@@ -37,16 +45,29 @@ window.PatientCard = React.createClass({
     var patientInfo = this.state.doctor_patients.map(function(patient) {
       return <PatientInfo
           childname={patient.childname}
+          username={patient.username}
           parentname={patient.parentname}
           key={patient.id}
+
           editPatient={this.editPatient}
           deletePatient={this.deletePatient}
           patient_id={patient.id}
           doctor_id={patient.doctor_id}
+
+          deletePatient={this.deletePatient}
+          setVisibility={this.setVisibility}
+          handleEditChange={this.handleEditChange}
+          >
+          <PatientInfoEdit
+          editPatient={this.editPatient}
+
           />
+          </PatientInfo>
         },this);
 
+
       return <div>{patientInfo}</div> 
+
   }
 });
 

@@ -33,6 +33,7 @@ passport.use(new passportLocal.Strategy({
         //   return done (null, false);
         // }
         else {
+          isDoctor = false;
           return done(null, user);
         }
       }).catch((err) => {

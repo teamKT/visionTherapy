@@ -1,3 +1,4 @@
+
 #patientCard {
 
 
@@ -8,8 +9,8 @@
 
 }
 
-#patientInfo {
-
+.modal-body input {
+display: list-item;
   
 }
 
