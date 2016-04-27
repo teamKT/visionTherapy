@@ -22,6 +22,7 @@ router.get('/new', helpers.isDoctor, (req, res) => {
     res.render("patients/new")
 });
 
+<<<<<<< HEAD
 
 router.get('/:patient_id', helpers.isPatient, function(req,res){
     res.format({
@@ -118,6 +119,33 @@ router.get('/new', helpers.currentUser, (req, res) => {
     res.render("patients/new")
 });
 
+=======
+router.get('/', helpers.currentUser, (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect(`/doctors/${req.params.doctor_id}/patients/${req.user.id}`)
+    }
+    knex('patients').where('doctor_id', +req.params.doctor_id).then((patients) => {
+        res.format({
+            'text/html': () => {
+                res.render('')
+            },
+            'application/json': () => {
+                res.send(patients)
+            },
+            'default': () => {
+                // log the request and respond with 406
+                res.status(406).send('Not Acceptable');
+            }
+        })
+    });
+})
+
+//NEW
+router.get('/new', helpers.currentUser, (req, res) => {
+    res.render("patients/new")
+});
+
+>>>>>>> 5fc73d6679aad3e72f8153449dd96ddc24a0a554
 //SHOW
 router.get('/:id', helpers.currentUser, (req, res) => {
     knex('patients')
