@@ -33,10 +33,7 @@ app.use('/doctors/:doctor_id/patients/:patient_id/exercises', routes.exercises);
 app.use('/doctors/:doctor_id/patients', routes.patients);
 app.use('/auth', routes.auth);
 app.use('/doctors', routes.doctors);
-
-app.get('/', helpers.signedOn, function(req, res){
-  res.render('homepage');
-});
+app.use('/', routes.statics);
 
 // listener
 app.listen(3000, function() {
