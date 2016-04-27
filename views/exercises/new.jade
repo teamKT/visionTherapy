@@ -7,4 +7,7 @@ block content
       p
         input(type="radio" name="exercises" value="#{exercise.id}")
         | #{exercise.name}
+    p
+      label instructions
+      input(type="text" name="plan[instructions]")
     input(type='submit' value='add')
