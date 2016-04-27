@@ -14,6 +14,7 @@ router.post('/signup', function(req,res){
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
     bcrypt.hash(req.body.user.password, salt, function(err, hash){
       knex('doctors').insert({
+        isDoctor: true,
         firstname: req.body.user.firstname,
         lastname: req.body.user.lastname,
         email: req.body.user.email,

@@ -105,9 +105,10 @@ router.get('/edit/:id', helpers.isDoctor, (req, res) => {
 router.post('/', helpers.isDoctor, (req, res) => {
     knex('patients')
         .insert({
+            isDoctor: false,
             childname: req.body.patient.childname,
-            username: req.body.patient.username,
             parentname: req.body.patient.parentname,
+            username: req.body.patient.username,
             doctor_id: +req.params.doctor_id
         })
         .then(() => {
