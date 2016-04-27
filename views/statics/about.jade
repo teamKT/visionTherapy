@@ -1,9 +1,16 @@
-extends ./layout.jade
+extends ../layout.jade
+block links 
+  link(rel="stylesheet", href="./css/statics.css")
 block content
-  h1 About Vision Therapy Online™
-  .desc We had a dream of providing high-quality, cost-effective vision therapy that any patient could access at home. A group of web developers with a background in vision founded Vision Therapy Online like last week. More than 3 days later, we offer world-class products and services that connect patients with their eyecare professionals, as well as extend access to quality healthcare.
+  .panel(class="panel panel-default")
+    .panel-heading 
+      .panel-default About Vision Therapy Online™
+    .desc We had a dream of providing high-quality, cost-effective vision therapy that any patient could access at home. A group of web developers with a background in vision founded Vision Therapy Online like last week. More than 3 days later, we offer world-class products and services that connect patients with their eyecare professionals, as well as extend access to quality healthcare.
 
-  h1 Meet The Founders
-  img(src="/images/meetTheDevs", alt="picture of the founders")
-  .desc 
+  .panel(class="panel panel-default")
+    .panel-heading
+      .panel-default Meet The Founders
+    .desc 
+      img(src="/images/meetTheDevs.jpg", alt="picture of the founders", height="50%", width="50%") 
+      | VTO was founded by Alex Chang, Katie Low, and Gunter Schneider
 
