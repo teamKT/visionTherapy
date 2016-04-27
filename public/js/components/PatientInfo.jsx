@@ -1,18 +1,21 @@
 window.PatientInfo = React.createClass({
-  getInitialState(){
-    return {
-      exercises: []
-    }
-  },
 
   componentWillMount(){
+    // get id of current user from server
+    $.getJSON("/auth/userid").done(function(data){
+      this.setState({userid: data.userid})
+      console.log("USERID at MOUNT in PatientInfo: ", this.state.userid)
+    }.bind(this),'json')
+
     $.getJSON(`/doctors/${this.props.patient_id}/ex`).done(function(exercises) {
       this.setState({exercises})
     }.bind(this),"json")
   },
 
-    getInitialState(){
+
+  getInitialState(){
       return {
+        exercises: [],
         patient_id: this.props.patient_id,
         childname: this.props.childname,
         username: this.props.username,
@@ -22,34 +25,6 @@ window.PatientInfo = React.createClass({
 
       }
     },
-
-  componentWillMount(){
-    // get id of current user from server
-    $.getJSON("/auth/userid").done(function(data){
-      this.setState({userid: data.userid})
-      console.log("USERID at MOUNT in PatientInfo: ", this.state.userid)
-    }.bind(this),'json')
-  },
-
-    getInitialState(){
-      return {
-        patient_id: this.props.patient_id,
-        childname: this.props.childname,
-        username: this.props.username,
-        parentname: this.props.parentname,
-        editVisibility: "hidden",
-        userid: ""
-
-      }
-    },
-
-  componentWillMount(){
-    // get id of current user from server
-    $.getJSON("/auth/userid").done(function(data){
-      this.setState({userid: data.userid})
-      console.log("USERID at MOUNT in PatientInfo: ", this.state.userid)
-    }.bind(this),'json')
-  },
 
   deletePatient(){
 
@@ -63,18 +38,6 @@ window.PatientInfo = React.createClass({
   },
 
   editPatient(){
-<<<<<<< HEAD
-=======
-
-    $.ajax({
-      method: "PUT",
-      url: `/doctors/${this.state.userid}/patients/${this.props.patient_id}`,
-      data: {patient: {childname: this.props.childname, username: this.props.username, parentname: this.props.parentname}},
-      dataType: 'json'
-    }).then(function(doctor_patients){
-      this.props.editPatient(doctor_patients)
-    }.bind(this))
->>>>>>> 5fc73d6679aad3e72f8153449dd96ddc24a0a554
 
     $.ajax({
       method: "PUT",
@@ -91,20 +54,6 @@ window.PatientInfo = React.createClass({
     this.setState({
       exercises: data
     })
-  },
-
-  handleChange(event){
-
-    this.props.onChange(event.target.value);
-  },
-
-  setVisibility(){
-    if(this.state.editVisibility === "hidden") {
-      this.setState({editVisibility: ""})      
-    }
-    else {
-      this.setState({editVisibility: "hidden"})      
-    }
   },
 
   handleChange(event){
@@ -139,7 +88,6 @@ window.PatientInfo = React.createClass({
       return (
         <div>
           <h3>Name of Child: {this.props.childname} (User ID {this.props.patient_id})</h3>
-<<<<<<< HEAD
           <h3>Name of Parent: {this.props.parentname}</h3>
           <button onClick={this.deletePatient}>X</button>
           <button onClick={this.editPatient}>edit patient</button>
@@ -147,8 +95,6 @@ window.PatientInfo = React.createClass({
           <div>{patientExercises}</div>
           <hr/>
 
-=======
->>>>>>> 5fc73d6679aad3e72f8153449dd96ddc24a0a554
           <h3>Screen Name:{this.props.username}</h3>
           <h3>Name of parent:{this.props.parentname}</h3>
           <button className="btn btn-default" onClick={this.deletePatient}>delete</button>

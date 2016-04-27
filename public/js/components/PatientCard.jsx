@@ -19,32 +19,21 @@ window.PatientCard = React.createClass({
     }.bind(this),'json')
   },
 
-  editPatient(doctor_patients){
 
-<<<<<<< HEAD
   editPatient(doctor_patients){
 
     this.setState({doctor_patients: doctor_patients})
 
-=======
-    this.setState({doctor_patients: doctor_patients})
->>>>>>> 5fc73d6679aad3e72f8153449dd96ddc24a0a554
   },
 
   deletePatient(doctor_patients){
     this.setState({doctor_patients: doctor_patients})
   },
 
-<<<<<<< HEAD
 
   handleChange(value){
 
-=======
-  handleChange(value){
-
->>>>>>> 5fc73d6679aad3e72f8153449dd96ddc24a0a554
   console.log('Value gotten back from the child: ' + value);
-  debugger
     this.setState({
       childname: value
     });
@@ -58,9 +47,6 @@ window.PatientCard = React.createClass({
           username={patient.username}
           parentname={patient.parentname}
           key={patient.id}
-<<<<<<< HEAD
-
-          editPatient={this.editPatient}
           deletePatient={this.deletePatient}
           patient_id={patient.id}
           doctor_id={patient.doctor_id}
@@ -71,26 +57,14 @@ window.PatientCard = React.createClass({
           >
           <PatientInfoEdit
           editPatient={this.editPatient}
-=======
->>>>>>> 5fc73d6679aad3e72f8153449dd96ddc24a0a554
-
-          deletePatient={this.deletePatient}
-          setVisibility={this.setVisibility}
           handleEditChange={this.handleEditChange}
-          >
-          <PatientInfoEdit
-          editPatient={this.editPatient}
+
           />
           </PatientInfo>
         },this);
 
-<<<<<<< HEAD
-
-      return <div>{patientInfo}</div> 
-
-=======
       return <div>{patientInfo}</div>
->>>>>>> 5fc73d6679aad3e72f8153449dd96ddc24a0a554
+
   }
 });
 
