@@ -43,7 +43,7 @@ router.post('/doctor-login', passport.authenticate('local', {
 }));
 
 // redirects doctors to right page after sign in
-router.get('/doctors', (req,res) => {
+router.get('/doctors', helpers.isAuthenticated, (req,res) => {
   res.redirect('/doctors/' + req.user.id)
 });
 
@@ -54,7 +54,7 @@ router.post('/patient-login', passport.authenticate('local', {
 }));
 
 // redirects patient to right page after sign in
-router.get('/patients', (req,res) => {
+router.get('/patients', helpers.isAuthenticated, (req,res) => {
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
     .where('patients.id', req.user.id).first().then(function(data){
       res.redirect('/doctors/' + data.doctor_id + '/patients/' + req.user.id)      

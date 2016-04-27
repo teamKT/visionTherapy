@@ -10,6 +10,11 @@ exports.seed = function(knex, Promise) {
       id: 2,
       name: 'Red-Green Tranaglyphs: Steps', 
       difficulty: 3
-    })
+    }),
+    knex('exercises').insert({
+      id: 3,
+      name: 'Lifesavers Vergences', 
+      difficulty: 4
+    }),
   ]);
 };

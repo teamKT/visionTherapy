@@ -29,11 +29,10 @@ window.PatientInfo = React.createClass({
     this.props.editPatient(this.props.patient_id)
   },
 
-  update(data){
-    console.log(JSON.stringify(data));
-    this.setState({
-      exercises: data
-    })
+  update(){
+    $.getJSON(`/doctors/${this.props.patient_id}/ex`).done(function(exercises) {
+      this.setState({exercises})
+    }.bind(this),"json")
   },
 
   render(){
