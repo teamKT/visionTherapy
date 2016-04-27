@@ -5,8 +5,8 @@ window.PatientExercises = React.createClass({
       method: "DELETE",
       url: `/doctors/${this.props.doctor_id}/patients/${this.props.patient_id}/exercises/${this.props.exercise_id}`,
       dataType: 'json'
-    }).then(function(exercises){
-      this.props.updateExercises(exercises)
+    }).then(function(data){
+      this.props.updateExercises()
     }.bind(this))
   },
 
