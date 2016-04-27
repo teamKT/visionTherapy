@@ -1,15 +1,17 @@
 extends ../layout.jade
 
+block links
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css")
+  link(rel="stylesheet", href="/css/patientDash.css")
+
 block content
-  p
-    a(href="/auth/logout") Log Out
-  h1 Patient #{currentUser.id} Dashboard 
-  p childName: #{currentUser.childname}
-  p parentName: #{currentUser.parentname}
-  p Username: #{currentUser.username}
-  
-  hr
-  h3 Welcome to Vision Therapy
-  each plan in patient_plans
-    p= plan.name
-  hr
+  a(href="/auth/logout") logout
+  .container
+    h3 #{child}'s Vision Therapy Dashboard: Welcome!
+    #patientDash
+   
+block scripts
+  script(src="/js/components/patientDash.js" type="text/babel")
+
+
+

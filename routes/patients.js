@@ -22,15 +22,75 @@ router.get('/new', helpers.isDoctor, (req, res) => {
     res.render("patients/new")
 });
 
-router.get('/:id', helpers.isPatient, helpers.ensureCorrectUser, (req,res) => {
-  knex('patients')
-    .join('plans', 'patients.id', 'plans.patient_id')
-    .join('exercises', 'exercises.id', 'plans.exercise_id')
-    .where('patients.id', +req.params.id)
-    .then((patient_plans)=>{
-      res.render('patients/show', {patient_plans});    
+router.get('/:patient_id', helpers.isPatient, function(req,res){
+    res.format({
+      'text/html':() =>{
+        knex('patients').where('id', +req.params.patient_id).first()
+        .then(child => {
+            console.log('CHILD', child.childname)
+            res.render('patients/show', {child: child.childname});
+        })
+       },
+      'application/json':() =>{
+         knex.select(
+           'exercises.name', 
+           'exercises.id', 
+           'exercises.difficulty',
+           'plans.patient_id',
+           'plans.routine',
+           'plans.outcome',
+           'plans.parent_comments',
+           'plans.created_at',
+           'patients.childname',
+           'patients.doctor_id',
+           'patients.parentname',
+           'patients.username'
+         ).from('patients')
+           .join('plans', 'patients.id', 'plans.patient_id')
+           .join('exercises', 'exercises.id', 'plans.exercise_id')
+           .where('patients.id', +req.params.patient_id)
+           .then((patient_plans)=>{res.send(patient_plans)});
+       },
+       'default': () => {
+         // log the request and respond with 406
+         res.status(406).send('Not Acceptable');
+       }
     })
-});
+})
+
+// router.get('/:patient_id', helpers.isPatient, function(req,res){
+//   knex.select(
+//     'exercises.name', 
+//     'exercises.id', 
+//     'exercises.difficulty',
+//     'plans.patient_id',
+//     'plans.routine',
+//     'plans.outcome',
+//     'plans.parent_comments',
+//     'plans.created_at',
+//     'patients.childname',
+//     'patients.doctor_id',
+//     'patients.parentname',
+//     'patients.username'
+//   ).from('patients')
+//     .join('plans', 'patients.id', 'plans.patient_id')
+//     .join('exercises', 'exercises.id', 'plans.exercise_id')
+//     .where('patients.id', +req.params.patient_id)
+//     .then((patient_plans)=>{
+//     res.format({
+//       'text/html':() =>{
+//         res.render('patients/show', {patient_plans});
+//        },
+//       'application/json':() =>{
+//          res.send(patient_plans)
+//        },
+//        'default': () => {
+//          // log the request and respond with 406
+//          res.status(406).send('Not Acceptable');
+//        }
+//     })
+//   });
+// })
 
 
 //EDIT
