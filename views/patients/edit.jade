@@ -1,15 +1,25 @@
 extends ../layout
 
 block content
-  h1 Edit Patient
-  form.form-group(action="/doctors/#{currentUser.id}/patients/#{patient.id}?_method=put" method="POST")
-    p
-      input(type="text" name="patient[childname]"  value="#{patient.childname}" placeholder="Enter Child Name")
-    p
-      input(type="text" name="patient[username]"  value="#{patient.username}" placeholder="Enter Child Screen Name")
-    p
-      input(type="text" name="patient[parentname]"  value="#{patient.parentname}" placeholder="Enter Parent Name")
-    p
-      input.btn.btn-default(type="submit" value="Submit")
-    a(href="/doctors/#{currentUser.id}")
-      button.btn.btn-default Cancel
+  .panel.panel-info
+    .panel-heading
+      .panel-title Edit Patient
+    .panel-body
+      form.form-horizontal(action="/doctors/#{currentUser.id}/patients/#{patient.id}?_method=put" method="POST")
+        .form-group
+          p
+            label Full Name:
+            input.form-control.input-lg(type="text" name="patient[childname]"  value="#{patient.childname}" placeholder="Enter Child Name")
+          p
+            label Screen Name:
+            input.form-control.input-lg(type="text" name="patient[username]"  value="#{patient.username}" placeholder="Enter Child Screen Name")
+          p
+            label Guardian:
+            input.form-control.input-lg(type="text" name="patient[parentname]"  value="#{patient.parentname}" placeholder="Enter Parent Name")
+          p
+            label Password:
+            input.form-control.input-lg(type="password" name="patient[password]" value="#{patient.password}" placeholder="Enter Child's Password")
+          p
+            input.btn.btn-default(type="submit" value="Submit")
+          a(href="/doctors/#{currentUser.id}")
+            button.btn.btn-default Cancel

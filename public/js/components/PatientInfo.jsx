@@ -38,9 +38,10 @@ window.PatientInfo = React.createClass({
   },
 
   handleChange(event){
-    this.props.childname = event.target.value
-    this.props.username = event.target.value
-    this.props.parentname = event.target.value
+    console.log("Child change: " , event.target.value)
+    console.log("Index: ", this.props.patient_id)
+    this.props.onChildChange(event.target.value, this.props.patient_id)
+  
 
   },
 
@@ -95,7 +96,7 @@ window.PatientInfo = React.createClass({
                       <label htmlFor="">Patient: </label>
                       <input type="text" onChange={this.handleChange} value={this.props.childname}></input>
                       <label htmlFor="">User Name: </label>
-                      <input type="text" onChange={this.handleChange} value={this.props.username}></input>
+                      <input type="text" onChange={this.handleChange} defaultValue={this.props.username}></input>
                       <label htmlFor="">Parent: </label>
                       <input type="text" onChange={this.handleChange} value={this.props.parentname}></input>
                       <button type="submit">Submit</button>

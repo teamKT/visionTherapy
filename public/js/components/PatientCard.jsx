@@ -2,6 +2,7 @@ window.PatientCard = React.createClass({
   getInitialState(){
     return {
       doctor_patients: []
+   
     }
   },
 
@@ -14,6 +15,7 @@ window.PatientCard = React.createClass({
       // request data for doctor dashboard
       $.getJSON(`/doctors/${data.userid}`).then(function(doctor_patients) {
           this.setState({doctor_patients})
+          console.log("Initial Query: ",doctor_patients )
       }.bind(this),"json")
     }.bind(this),'json')
   },
@@ -30,8 +32,18 @@ window.PatientCard = React.createClass({
 
   },
 
-  handleChange(){
-    this.setState({childname: this.state.childname})
+  handleChange(value,index){
+    console.log("Parent Change: ", value)
+    var nextDoctorPatients = this.state.doctor_patients;
+    var childnameIndex = nextDoctorPatients.findIndex((patient) =>{
+    console.log("Waht is patient", patient)
+      return patient.id === index 
+    })
+
+    console.log("childindex: ",childnameIndex)
+    nextDoctorPatients[childnameIndex].childname = value
+    console.log("NXCHINDEX: ", nextDoctorPatients[childnameIndex].childname)
+    this.setState({doctor_patients: nextDoctorPatients});
 
   },
 
@@ -50,6 +62,7 @@ window.PatientCard = React.createClass({
           patient_id={patient.id}
           doctor_id={patient.doctor_id}
           userid={this.state.userid}
+          onChildChange={this.handleChange}
           />
         },this);
 
