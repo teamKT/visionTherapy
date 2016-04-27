@@ -1,18 +1,23 @@
-#patientCard {
+#patientCard, #patientExercises, #patientInfo, .settings {
 
 
 }
 
-#patientExercises {
-
-
+th {
+  text-align: center;
 }
 
-#patientInfo {
-
-  
+table {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  box-shadow: 1px 0px 10px 1px rgba(224,217,213,1);
 }
 
-.settings {
+thead {
+  border: 1px solid lightgray;
+}
+
+.text, .settings {
   font-size: 16px;
 }
+

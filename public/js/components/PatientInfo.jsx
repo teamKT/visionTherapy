@@ -6,6 +6,7 @@ window.PatientInfo = React.createClass({
   },
 
   componentWillMount(){
+
     $.getJSON(`/doctors/${this.props.patient_id}/ex`).done(function(exercises) {
       this.setState({exercises})
     }.bind(this),"json")
@@ -13,10 +14,10 @@ window.PatientInfo = React.createClass({
 
   deletePatient(){
     // this.props.deletePatient(this.props.patient_id)
-    console.log("userid in deletePatient" + this.userid);
+    console.log("userid in deletePatient" + this.props.userid);
     $.ajax({
       method: "DELETE",
-      url: `/doctors/${this.userid}/patients/${this.props.patient_id}`,
+      url: `/doctors/${this.props.userid}/patients/${this.props.patient_id}`,
       dataType: 'json'
     }).then(function(doctor_patients){
       console.log("After delete: ", doctor_patients)
@@ -51,12 +52,17 @@ window.PatientInfo = React.createClass({
 
       return (
         <div>
-          <h3>Name of Child: {this.props.childname} (User ID {this.props.patient_id})</h3>
-          <h3>Name of Parent: {this.props.parentname}</h3>
-          <button onClick={this.deletePatient}>X</button>
-          <button onClick={this.editPatient}>edit patient</button>
-          <a href={url}>add exercise</a>
+          <div className="panel panel-default">
+          <div className="panel-heading">
+          <h3 className="panel-title">Name of Patient: <strong>{this.props.childname}</strong> (User ID {this.props.patient_id})</h3>
+            <button className="btn btn-danger btn-xs pull-right" onClick={this.deletePatient}>Delete Patient</button>
+            <button className="btn btn-default btn-xs pull-right" onClick={this.editPatient}>edit patient</button>
+            <a href={url}><button className="btn btn-info btn-xs pull-right">Add Exercise</button></a>
+          <p>Name of Parent: {this.props.parentname}</p>
+
           <div>{patientExercises}</div>
+            </div>
+          </div>
           <hr/>
         </div>
       )
