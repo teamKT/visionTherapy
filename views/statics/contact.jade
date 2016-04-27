@@ -1,2 +1,37 @@
-extends ./layout.jade
-  block content
+extends ../layout.jade
+block links 
+  link(rel="stylesheet", href="./css/statics.css")
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css")
+block content
+  .panel(class="panel panel-default")
+    .panel-heading 
+      .panel-default Get Support
+    .desc 
+      p Having issues with the site or signing up? 
+      p 
+        i(class="fa fa-envelope-o fa-2" aria-hidden="true")  support@vto.com
+      p 
+        i(class="fa fa-mobile fa-2" aria-hidden="true")   1(800)-VTO-HELP
+
+
+  .panel(class="panel panel-default")
+    .panel-heading
+      .panel-default Contact Us
+    .desc
+      .row
+        .col-xs-4 
+          img(class="profilePic", src="/images/alex.jpg", alt="Alex Chang CTO") 
+          p Alexander Chang
+          p Chief Technology Officer, Founder, Developer
+          i(class="fa fa-envelope-o fa-2" aria-hidden="true")    alex@vto.com
+        .col-xs-4
+          img(class="profilePic", src="/images/katie.jpg", alt="Katherine Low CEO") 
+          p Katherine Low
+          p Chief Execute Officer, Founder, Developer
+          i(class="fa fa-envelope-o fa-2" aria-hidden="true")   katie@vto.com
+        .col-xs-4
+          img(class="profilePic", src="/images/gunther.png", alt="Gunter Schneider COO") 
+          p Gunther Schneider
+          p Chief Digital Officer, Founder, Developer
+          i(class="fa fa-envelope-o fa-2" aria-hidden="true")  gunther@vto.com
+
