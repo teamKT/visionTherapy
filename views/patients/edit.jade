@@ -1,15 +1,17 @@
-extends ../layout
 
-block content
-  h1 Edit Patient
-  form.form-group(action="/doctors/#{currentUser.id}/patients/#{patient.id}?_method=put" method="POST")
-    p
-      input(type="text" name="patient[childname]"  value="#{patient.childname}" placeholder="Enter Child Name")
-    p
-      input(type="text" name="patient[username]"  value="#{patient.username}" placeholder="Enter Child Screen Name")
-    p
-      input(type="text" name="patient[parentname]"  value="#{patient.parentname}" placeholder="Enter Parent Name")
-    p
-      input.btn.btn-default(type="submit" value="Submit")
-    a(href="/doctors/#{currentUser.id}")
-      button.btn.btn-default Cancel
+.modal-dialog
+  .modal-content
+    .modal-header
+      button.close(type="button" data-dismiss="modal" aria-hidden="true")&times;
+      h4.modal-title Modal title
+      .modal-body
+        .h1 Edit Patient Info:
+        form.form-group(action="/doctors/#{currentUser.id}/patients/#{patient.id}?_method=put" method="POST")
+          .input(type="text" name="patient[childname]" value="#{patient.childname}" placeholder="Enter Child Name")
+          .input(type="text" name="patient[username]" value="#{patient.username}" placeholder="Enter Child Screen Name")
+          .input(type="text" name="patient[parentname]" value="#{patient.parentname}" placeholder="Enter Parent Name")
+          .input(type="submit")
+      .modal-footer
+       button.btn.btn-default(type="button" data-dismiss="modal") Close
+       button.btn.btn-primary(type="button" class="") Save changes
+
