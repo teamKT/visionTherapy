@@ -2,7 +2,6 @@ exports.seed = function(knex, Promise) {
   return Promise.all([
     knex('plans').del(),
     knex('plans').insert({
-      id: 1,
       doctor_id: 1, 
       patient_id: 1, 
       exercise_id: 1, 
@@ -11,7 +10,6 @@ exports.seed = function(knex, Promise) {
       parent_comments: 'Timmy did it'
     }),
     knex('plans').insert({
-      id: 2,
       doctor_id: 1, 
       patient_id: 1, 
       exercise_id: 2, 
@@ -20,7 +18,6 @@ exports.seed = function(knex, Promise) {
       parent_comments: 'Timmy was a bit slow'
     }),
     knex('plans').insert({
-      id: 3,
       doctor_id: 1, 
       patient_id: 2, 
       exercise_id: 1, 
@@ -29,7 +26,6 @@ exports.seed = function(knex, Promise) {
       parent_comments: 'Kimmy was a bit slow'
     }),
     knex('plans').insert({
-      id: 4,
       doctor_id: 2, 
       patient_id: 3, 
       exercise_id: 2, 

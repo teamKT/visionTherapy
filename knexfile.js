@@ -11,7 +11,7 @@ module.exports = {
       min: 1,
       max: 1
     },
-    debug: true
+    debug: false
   },
 
   test: {

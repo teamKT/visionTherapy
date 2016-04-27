@@ -26,6 +26,7 @@ router.get('/:id', helpers.ensureCorrectUser, function(req,res){
         res.render('doctors/show', {doctor_patients});
       },
       'application/json':() =>{
+        console.log(doctor_patients)
         res.send(doctor_patients)
       },
       'default': () => {
@@ -34,6 +35,16 @@ router.get('/:id', helpers.ensureCorrectUser, function(req,res){
       }
     })
   });
+})
+
+// GET Doctor's patient exercises info
+router.get('/:id/ex', function(req,res){
+  knex('patients').join('plans', 'patients.id', 'plans.patient_id')
+    .select('exercises.name', 'plans.id')
+    .join('exercises', 'exercises.id', 'plans.exercise_id')
+    .where('patients.id', req.params.id)
+    .then((data)=>res.json(data))
+  
 })
 
 // EDIT Doctor
