@@ -4,12 +4,12 @@ block content
   h1 New Patient
   form.form-group(action="/doctors/#{currentUser.id}/patients" method="POST")
     p
-      input(type="text" name="patient[childname]" placeholder="Enter Child Name")
+      input(type="text" name="patient[childname]" placeholder="Enter Child's Name")
     p
       input(type="text" name="patient[parentname]" placeholder="Enter Parent Name")
     p
       input(type="text" name="patient[username]" placeholder="Enter Child's Screen Name")
     p
-      input(type="password" name="patient[password]")
+      input(type="password" name="patient[password]" placeholder="Enter Child's Password")
     p
       input.btn.btn-default(type="submit" value="Submit")
