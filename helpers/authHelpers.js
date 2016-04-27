@@ -9,12 +9,19 @@ const authHelpers = {
     }
   },
   ensureCorrectUser(req,res,next){
-    if(+req.params.id !== req.user.id){
+    if(+req.params.id !== req.user.id && req.user.isDoctor){
       return res.redirect('/auth/doctors');
+    }
+    else if (+req.params.patient_id !== req.user.id && !req.user.isDoctor) {
+      return res.redirect('/auth/patients');
     }
     else {
       return next();
     }
+  },
+  isAuthenticated(req,res,next){
+    if (req.isAuthenticated()) return next()
+    else res.redirect('/')
   },
   signedOn(req,res,next){
     if (req.isAuthenticated()) {

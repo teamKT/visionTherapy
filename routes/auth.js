@@ -6,14 +6,17 @@ const SALT_WORK_FACTOR = 10;
 const passport = require("passport");
 const helpers = require("../helpers/authHelpers")
 
+// signing up as a doctor
 router.get('/signup', helpers.signedOn, function(req,res){
   res.render('auth/signup')
 });
 
+// POST new doctor info into database
 router.post('/signup', function(req,res){
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
     bcrypt.hash(req.body.user.password, salt, function(err, hash){
       knex('doctors').insert({
+        isDoctor: true,
         firstname: req.body.user.firstname,
         lastname: req.body.user.lastname,
         email: req.body.user.email,
@@ -28,6 +31,7 @@ router.post('/signup', function(req,res){
   });
 });
 
+// login page showing both doctors and patients login
 router.get('/login', helpers.signedOn, function(req,res){
   res.render('auth/login')
 });
@@ -38,7 +42,7 @@ router.post('/doctor-login', passport.authenticate('local', {
   failureRedirect: '/auth/login'
 }));
 
-// 
+// redirects doctors to right page after sign in
 router.get('/doctors', (req,res) => {
   res.redirect('/doctors/' + req.user.id)
 });
@@ -49,7 +53,7 @@ router.post('/patient-login', passport.authenticate('local', {
   failureRedirect: '/auth/login'
 }));
 
-// redirects patient to right page
+// redirects patient to right page after sign in
 router.get('/patients', (req,res) => {
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
     .where('patients.id', req.user.id).first().then(function(data){
@@ -63,7 +67,7 @@ router.get('/logout', (req,res) => {
   res.redirect('/auth/login');
 });
 
-//Return the session value when the client checks
+// return the session value when the client checks
 router.get('/userid', function(req,res){
   console.log("# Current User ID check "+ req.user.id);
   knex('patients').where('id', +req.user.id).first()
