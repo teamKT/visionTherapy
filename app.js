@@ -1,5 +1,4 @@
 // require all the things
-require('dotenv').load();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -9,7 +8,9 @@ const session = require('cookie-session');
 const passport = require('passport')
 const routes = require('./routes/index');
 const helpers = require('./helpers/authHelpers')
-
+if(process.env.NODE_ENV !== "production"){
+    require('dotenv').load();
+}
 // use middleware
 app.use(morgan('tiny'));
 app.use(bodyParser.urlencoded({extended: true}));
