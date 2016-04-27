@@ -1,0 +1,18 @@
+.container {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.desc {
+  margin: 3%;
+}
+
+img {
+  border-radius: 5px;
+  height: 50%;
+  width: 50%;
+}
+
+.profilePic {
+  border-radius: 50%;
+}

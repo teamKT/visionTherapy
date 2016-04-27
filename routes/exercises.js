@@ -16,10 +16,10 @@ router.get('/:exercise_id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body.exercises);
   knex('plans')
     .insert({
       exercise_id: req.body.exercises, 
+      routine: req.body.plan.instructions,
       patient_id: req.params.patient_id, 
       doctor_id: req.params.doctor_id
     })
@@ -29,6 +29,7 @@ router.post('/', (req, res) => {
 router.delete('/:id', (req, res) => {
   knex('plans').del().where('plans.id', req.params.id).then(()=>{
     knex('plans').join('exercises', 'exercises.id', 'plans.exercise_id')
+      .where('plans.patient_id', req.params.id)
       .then((data)=>{
         res.send(data);
     })
