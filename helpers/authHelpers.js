@@ -16,6 +16,10 @@ const authHelpers = {
       return next();
     }
   },
+  isAuthenticated(req,res,next){
+    if (req.isAuthenticated()) return next()
+    else res.redirect('/')
+  },
   signedOn(req,res,next){
     if (req.isAuthenticated()) {
       res.redirect('/auth/doctors')

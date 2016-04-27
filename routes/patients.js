@@ -3,25 +3,41 @@ const router = express.Router({ mergeParams: true })
 const knex = require("../db/knex");
 const helpers = require('../helpers/authHelpers');
 
+router.use(helpers.isAuthenticated);
 router.use(helpers.currentUser);
 
 // PatientInfo
 
-// patients index for DEV ENVIRONMENT
-router.get('/', (req,res) => {
-  // if(req.isAuthenticated()){
-  //   res.redirect(`/doctors/${req.params.doctor_id}/patients/${req.user.id}`)
-  // }
-  knex('patients').where('doctor_id',+req.params.doctor_id).then((patients) => {
-    res.send(patients)
-  });
+// INDEX patients route
+router.get('/', helpers.isPatient, (req,res) => {
+  res.redirect(`/doctors/${req.params.doctor_id}/patients/${req.user.id}`)
 })
 
-//NEW
+// renders a new patient page as the doctor user
 router.get('/new', helpers.isDoctor, (req, res) => {
-    res.render("patients/new")
+  res.render("patients/new")
 });
 
+// POST the new patient into the database as doctor user
+router.post('/', helpers.isDoctor, (req, res) => {
+  knex('patients')
+    .insert({
+      isDoctor: false,
+      childname: req.body.patient.childname,
+      parentname: req.body.patient.parentname,
+      username: req.body.patient.username,
+      password: req.body.patient.password,
+      doctor_id: +req.params.doctor_id
+    })
+    .then(() => {
+      res.redirect(`/doctors/${req.params.doctor_id}`)
+    }).catch(err => {
+      console.log("Error Message: ", err)
+      res.redirect(`/doctors/${req.params.doctor_id}`)
+    })
+});
+
+// VIEW patient's dashboard
 router.get('/:patient_id', helpers.isPatient, function(req,res){
     res.format({
       'text/html':() =>{
@@ -58,67 +74,12 @@ router.get('/:patient_id', helpers.isPatient, function(req,res){
     })
 })
 
-// router.get('/:patient_id', helpers.isPatient, function(req,res){
-//   knex.select(
-//     'exercises.name', 
-//     'exercises.id', 
-//     'exercises.difficulty',
-//     'plans.patient_id',
-//     'plans.routine',
-//     'plans.outcome',
-//     'plans.parent_comments',
-//     'plans.created_at',
-//     'patients.childname',
-//     'patients.doctor_id',
-//     'patients.parentname',
-//     'patients.username'
-//   ).from('patients')
-//     .join('plans', 'patients.id', 'plans.patient_id')
-//     .join('exercises', 'exercises.id', 'plans.exercise_id')
-//     .where('patients.id', +req.params.patient_id)
-//     .then((patient_plans)=>{
-//     res.format({
-//       'text/html':() =>{
-//         res.render('patients/show', {patient_plans});
-//        },
-//       'application/json':() =>{
-//          res.send(patient_plans)
-//        },
-//        'default': () => {
-//          // log the request and respond with 406
-//          res.status(406).send('Not Acceptable');
-//        }
-//     })
-//   });
-// })
-
-
-//EDIT
+// EDIT
 router.get('/edit/:id', helpers.isDoctor, (req, res) => {
     knex('patients').where("id", +req.params.id).first().then(patient => {
         res.render("patients/edit", { patient })
     });
 });
-
-
-// POST
-router.post('/', helpers.isDoctor, (req, res) => {
-    knex('patients')
-        .insert({
-            isDoctor: false,
-            childname: req.body.patient.childname,
-            parentname: req.body.patient.parentname,
-            username: req.body.patient.username,
-            doctor_id: +req.params.doctor_id
-        })
-        .then(() => {
-            res.redirect(`/doctors/${req.params.doctor_id}`)
-        }).catch(err => {
-            console.log("Error Message: ", err)
-            res.redirect(`/doctors/${req.params.doctor_id}`)
-        })
-});
-
 
 // PUT
 // needs work
@@ -129,9 +90,7 @@ router.put('/:id', helpers.isDoctor, (req, res) => {
         });
 });
 
-
-// DELETE
-
+// DELETE patient as doctor user
 router.delete('/:id', helpers.isDoctor, (req, res) => {
     knex('patients').where('id', +req.params.id).del().returning('doctor_id')
         .then((doctor_id) => {
