@@ -17,12 +17,6 @@ thead {
   border: 1px solid lightgray;
 }
 
-h3 {
-  padding: 2%;
-  border: 1px solid lightgray;
-  box-shadow: 1px 0px 5px 1px rgba(224,217,213,1);
-}
-
 .text, .settings {
   font-size: 16px;
 }
