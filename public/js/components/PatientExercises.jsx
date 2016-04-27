@@ -1,0 +1,20 @@
+window.PatientExercises = React.createClass({
+  
+  deleteExercise(){
+    $.ajax({
+      method: "DELETE",
+      url: `/doctors/${this.props.doctor_id}/patients/${this.props.patient_id}/exercises/${this.props.exercise_id}`,
+      dataType: 'json'
+    }).then(function(exercises){
+      this.props.updateExercises(exercises)
+    }.bind(this))
+  },
+
+  render(){
+    return <div>
+      <h4> Exercise Name: {this.props.name}
+      <button onClick={this.deleteExercise}>X</button>
+      </h4>
+    </div>  
+  }
+});

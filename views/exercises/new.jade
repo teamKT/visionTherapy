@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  h1 New Exercise
+  form(action='/doctors/#{currentUser.id}/patients/#{patient}/exercises', method='POST')
+    each exercise in exercises
+      p
+        input(type="radio" name="exercises" value="#{exercise.id}")
+        | #{exercise.name}
+    input(type='submit' value='add')
