@@ -1,8 +1,6 @@
 extends ../layout.jade
 
 block content
-  p
-    a(href="/auth/logout") Log Out
   h1 Doctor #{currentUser.id} Dashboard 
     span.settings
       a(href="/doctors/#{currentUser.id}/edit") Settings
