@@ -92,14 +92,16 @@ window.PatientInfo = React.createClass({
                   <h4 className="modal-title">Edit Patient {this.props.childname} (ID: {this.props.patient_id})</h4>
                 </div>
                 <div className="modal-body">
-                    <form onSubmit={this.editPatient}>
+                    <form className="form-horizontal" onSubmit={this.editPatient}>
+                      <div className="form-group">
                       <label htmlFor="">Patient: </label>
-                      <input type="text" onChange={this.handleChange} value={this.props.childname}></input>
+                      <input type="text" className="form-control input-lg" onChange={this.handleChange} value={this.props.childname}></input>
                       <label htmlFor="">User Name: </label>
-                      <input type="text" onChange={this.handleChange} defaultValue={this.props.username}></input>
+                      <input type="text" className="form-control input-lg" onChange={this.handleChange} defaultValue={this.props.username}></input>
                       <label htmlFor="">Parent: </label>
-                      <input type="text" onChange={this.handleChange} value={this.props.parentname}></input>
-                      <button type="submit">Submit</button>
+                      <input type="text" className="form-control input-lg" onChange={this.handleChange} value={this.props.parentname}></input>
+                      <button type="submit" className="btn btn-default" >Submit</button>
+                      </div>
                   </form>
                 </div>
 
