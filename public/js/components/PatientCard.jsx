@@ -1,8 +1,7 @@
 window.PatientCard = React.createClass({
   getInitialState(){
     return {
-      doctor_patients: [],
-      userid: ""
+      doctor_patients: []
     }
   },
 
@@ -10,6 +9,8 @@ window.PatientCard = React.createClass({
     // get id of current user from server
     $.getJSON("/auth/userid").done(function(data){
       this.setState({userid: data.userid})
+      console.log("USERID from DATA: ", data.userid)
+      console.log("USERID on MOUNT: ", this.state.userid)
       // request data for doctor dashboard
       $.getJSON(`/doctors/${data.userid}`).then(function(doctor_patients) {
           this.setState({doctor_patients})
@@ -43,6 +44,7 @@ window.PatientCard = React.createClass({
           deletePatient={this.deletePatient}
           patient_id={patient.id}
           doctor_id={patient.doctor_id}
+          userid={this.state.userid}
           />
         },this);
 

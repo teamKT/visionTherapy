@@ -1,23 +1,29 @@
 extends ../layout.jade
 
+block links
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css")
+  link(rel="stylesheet", href="/css/style.css")
+
 block content
-  h1 Doctor #{currentUser.id} Dashboard 
-    span.settings
-      a(href="/doctors/#{currentUser.id}/edit") Settings
+  .row
+    .col-md-10.col-md-offset-1
+      
+      a(href="/auth/logout") Log Out
+      h3 Vision Therapy - Dashboard 
+        span 
+          a.pull-right(href="/doctors/#{currentUser.id}/edit") 
+            button.btn.btn-default Settings
+          a.pull-right(href="/doctors/#{currentUser.id}/patients/new")
+            button.btn.btn-info Add Patient
+      h4 Welcome Doctor #{currentUser.lastname} (User ID: #{currentUser.id})
+      p 
+        .text FirstName: #{currentUser.firstname}
+        .text LastName: #{currentUser.lastname}
+        .text Username: #{currentUser.username}
+        .text Email: #{currentUser.email}
 
-  p FirstName: #{currentUser.firstname}
-  p LastName: #{currentUser.lastname}
-  p Username: #{currentUser.username}
-  p Email: #{currentUser.email}
-
-  hr
-  h3 Welcome to Vision Therapy
-  a(href="/doctors/#{currentUser.id}/patients/new")
-    button Add Patient
-  hr
-  //- each patient in doctor_patients
-  #patientCard
-  hr
+      #patientCard
+      
 block scripts
   script(src="/js/components/PatientCard.jsx" type="text/babel")
   script(src="/js/components/PatientInfo.jsx" type="text/babel")
