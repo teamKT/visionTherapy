@@ -4,9 +4,9 @@ head
   meta(charset="UTF-8")
   title Project 2
   link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css")
+  link(rel="stylesheet", href="/css/navbar.css")
   block links
 body
-
   block navbar
     nav.navbar.navbar-default
         .container-fluid
@@ -16,7 +16,7 @@ body
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-              a.navbar-brand(href='#') Vision Therapy Online
+              a.navbar-brand(href='/') Vision Therapy Online
             #bs-example-navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav
                 li
@@ -25,6 +25,8 @@ body
                     span.sr-only (current)
                 li
                   a(href='/about') About
+                li 
+                  a(href="/contact") Contact
               form.navbar-form.navbar-left(role='search')
                 .form-group
                   input.form-control(type='text', placeholder='Search')
