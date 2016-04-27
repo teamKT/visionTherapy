@@ -3,17 +3,13 @@ const router = express.Router()
 const knex = require("../db/knex");
 const helpers = require('../helpers/authHelpers');
 
+router.use(helpers.isAuthenticated);
 router.use(helpers.isDoctor);
 router.use(helpers.currentUser);
 
-// doctors index for DEV ENVIRONMENT
+// INDEX doctors route
 router.get('/', function(req,res){
-  // if(req.isAuthenticated()){
-  //   res.redirect(`/doctors/${req.user.id}`)
-  // }
-  knex('doctors').then((doctors) => {
-    res.send(doctors);
-  })
+  res.redirect(`/doctors/${req.user.id}`)
 });
 
 // VIEW doctor's dashboard
@@ -37,7 +33,7 @@ router.get('/:id', helpers.ensureCorrectUser, function(req,res){
   });
 })
 
-// GET Doctor's patient exercises info
+// GET Doctor's patient exercises info in JSON
 router.get('/:id/ex', function(req,res){
   knex('patients').join('plans', 'patients.id', 'plans.patient_id')
     .select('exercises.name', 'plans.id')
@@ -53,7 +49,7 @@ router.get('/:id/edit', helpers.ensureCorrectUser, function(req,res){
 })
 
 // DELETE Doctor
-router.delete('/:id', function(req,res){
+router.delete('/:id', helpers.ensureCorrectUser, function(req,res){
   knex('doctors').del().where('doctors.id', +req.params.id)
     .then(()=>{
       req.logout();
