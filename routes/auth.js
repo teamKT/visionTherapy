@@ -66,8 +66,16 @@ router.get('/logout', (req,res) => {
 //Return the session value when the client checks
 router.get('/userid', function(req,res){
   console.log("# Current User ID check "+ req.user.id);
-  res.json({userid: req.user.id})
+  knex('patients').where('id', +req.user.id).first()
+  .then((user) =>{
+    if (user) {
+      res.json({childInfo: user});
+    } else {
+      res.json({userid: req.user.id});
+    }
+  })    
 });
+
 
 
 module.exports = router;
