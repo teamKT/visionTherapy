@@ -38,7 +38,7 @@ router.post('/', helpers.isDoctor, (req, res) => {
 });
 
 // VIEW patient's dashboard
-router.get('/:patient_id', helpers.isPatient, function(req,res){
+router.get('/:patient_id', helpers.isPatient, helpers.ensureCorrectUser, function(req,res){
     res.format({
       'text/html':() =>{
         knex('patients').where('id', +req.params.patient_id).first()
