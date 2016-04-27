@@ -30,6 +30,11 @@ window.PatientCard = React.createClass({
 
   },
 
+  handleChange(){
+    this.setState({childname: this.state.childname})
+
+  },
+
   removeExercise(event){
 
   },
