@@ -33,6 +33,10 @@ thead {
   margin-top: 5%;
 }
 
+.inline {
+  display: inline-block;
+}
+
 .content {
   margin-top: 10%;
   

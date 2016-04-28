@@ -12,7 +12,7 @@ window.PatientCard = React.createClass({
       this.setState({userid: data.id})
       console.log("DATA: ", data)
       // request data for doctor dashboard
-      $.getJSON(`/doctors/${data.userid}`).then(function(doctor_patients) {
+      $.getJSON(`/doctors/${this.state.userid}`).then(function(doctor_patients) {
           this.setState({doctor_patients})
           console.log("Initial Query: ",doctor_patients )
       }.bind(this),"json")
@@ -23,12 +23,32 @@ window.PatientCard = React.createClass({
     this.setState({doctor_patients: doctor_patients})
   },
 
-    editPatient(doctor_patients){
-    this.setState({doctor_patients: doctor_patients})
+    editPatient(childname, username, parentname, patient_id){
+      console.log("Hi this is the PARENT before AJAX", childname, username, parentname)
+      console.log("USERID:", this.state.userid)
+      console.log("PatientID:", patient_id)
+
+        $.ajax({
+      method: "PUT",
+      url: `/doctors/${this.state.userid}/patients/${patient_id}`,
+      dataType: 'json',
+      data: {patient: {
+        childname: childname,
+        username: username,
+        parentname: parentname}},
+      cache: false,
+      success: function(doctor_patients) {
+        console.log("Do we have SUCCESS?")
+        this.setState({doctor_patients: doctor_patients});
+      }.bind(this),
+      error: function(status, err) {
+        console.error( status, err.toString());
+      }.bind(this)
+    });
   },
 
 
-  handleChange(value,index){
+  handleChange(value,index, fieldValue){
         console.log("Parent Change: ", value)
         console.log("Index passed to Parent: ", index)
     var nextDoctorPatients = this.state.doctor_patients;
@@ -39,7 +59,7 @@ window.PatientCard = React.createClass({
 
         console.log("childindex: ",childnameIndex)
         console.log("Item in the array: ", nextDoctorPatients[childnameIndex])
-    nextDoctorPatients[childnameIndex].childname = value
+    nextDoctorPatients[childnameIndex][fieldValue] = value
         console.log("Parentname at Array Index: ", nextDoctorPatients[childnameIndex].parentname)
     this.setState({doctor_patients: nextDoctorPatients});
 
