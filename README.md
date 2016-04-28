@@ -8,15 +8,15 @@ We had a dream of providing high-quality, cost-effective vision therapy that any
 Technologies Used
 --
 
-![alt tag](http://www.myintervals.com/blog/wp-content/uploads/2011/12/postgresql-logo1.png =100x100)
-![alt tag](http://blog.tryolabs.com/wp-content/uploads/2015/04/logo-578x270.png =x100)
-![alt tag](https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT29KTHfYpV97Xy0KfOjc83PerxvTXQ4KtbnDFuddt0I4xkji-9QDZG4w =100x100)
-![alt tag](https://winio.herokuapp.com/images/jquery.png =x100)
-![alt tag](https://avatars0.githubusercontent.com/u/9338635?v=3&s=400 =100x100)
-![alt tag](https://cdn2.iconfinder.com/data/icons/nodejs-1/128/nodejs-128.png =100x100)
-![alt tag](https://winio.herokuapp.com/images/passport.png =100x100)
-![alt tag](https://winio.herokuapp.com/images/knex.png =x100)
-![alt tag](https://winio.herokuapp.com/images/mocha.png =x100)
+![alt tag](http://www.myintervals.com/blog/wp-content/uploads/2011/12/postgresql-logo1.png)
+![alt tag](http://blog.tryolabs.com/wp-content/uploads/2015/04/logo-578x270.png)
+![alt tag](https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT29KTHfYpV97Xy0KfOjc83PerxvTXQ4KtbnDFuddt0I4xkji-9QDZG4w)
+![alt tag](https://winio.herokuapp.com/images/jquery.png)
+![alt tag](https://avatars0.githubusercontent.com/u/9338635?v=3&s=400)
+![alt tag](https://cdn2.iconfinder.com/data/icons/nodejs-1/128/nodejs-128.png)
+![alt tag](https://winio.herokuapp.com/images/passport.png)
+![alt tag](https://winio.herokuapp.com/images/knex.png)
+![alt tag](https://winio.herokuapp.com/images/mocha.png)
 
 
 
@@ -54,7 +54,10 @@ To run the app:
 
 To run the tests:
 
+  1. create test db:
+
   ```sh
+  createdb project2_app_test
   npm test
   ```
 
