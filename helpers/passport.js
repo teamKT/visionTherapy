@@ -14,6 +14,7 @@ passport.use(new passportLocal.Strategy({
           return done(null, false);
         }
         // DISABLED PASSWORD MATCHING FOR SIGNING IN
+        // console.log(password);
         // if (!bcrypt.compareSync(password, user.password)) {
         //   return done (null, false);
         // }

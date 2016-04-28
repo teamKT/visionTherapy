@@ -5,27 +5,40 @@ block links
   link(rel="stylesheet", href="/css/style.css")
 
 block content
-  p
-    a(href="/auth/signup/") Doctor Sign Up
+  .row.content
+    .col-xs-3.col-xs-offset-2
+      .panel(class="panel panel-default")
+        .panel-heading
+          .panel-default 
+            h4.text-center Sign in as doctor
+        .desc
+          form(action="/auth/doctor-login" method="POST")  
+            p.text-center
+              label Username
+              br
+              input(type="text" name="user[username]" autofocus)
+            p.text-center
+              label Password
+              br
+              input(type="password" name="user[password]")
+            p.text-center
+              input(type="submit" value="Submit")
+    .col-xs-3.col-xs-offset-2
+      .panel(class="panel panel-default")
+        .panel-heading
+          .panel-default
+            h4.text-center Sign in as patient
+        .desc
+          form(action="/auth/patient-login" method="POST")  
+              p.text-center
+                label Username
+                br
+                input(type="text" name="user[username]" autofocus)
+              p.text-center
+                label Password
+                br
+                input(type="password" name="user[password]")
+              p.text-center
+                input(type="submit" value="Submit")
 
-  h2 Doctors Log In
-  form(action="/auth/doctor-login" method="POST")  
-    p
-      label Username
-      input(type="text" name="user[username]" autofocus)
-    p
-      label Password
-      input(type="password" name="user[password]")
-    p
-      input(type="submit" value="Log In")
 
-  h2 Patients Log In
-  form(action="/auth/patient-login" method="POST")  
-    p
-      label Username
-      input(type="text" name="user[username]" autofocus)
-    p
-      label Password
-      input(type="password" name="user[password]")
-    p
-      input(type="submit" value="Log In")

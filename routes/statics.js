@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const helpers = require('../helpers/authHelpers');
 
+router.use(helpers.currentUser);
+
 router.get('/contact', function(req, res) {
   res.render('statics/contact');
 });

@@ -1,24 +1,36 @@
 extends ../layout.jade
 
+block links
+  link(rel="stylesheet", href="/css/style.css")
+
 block content
-  p
-    a(href="/auth/login") Return
-  h2 Doctors Sign Up
-  form(action="/auth/signup" method="POST") 
-    p
-      label First Name
-      input(type="text" name="user[firstname]")
-    p
-      label Last Name
-      input(type="text" name="user[lastname]")
-    p
-      label Email
-      input(type="email" name="user[email]")
-    p
-      label Username
-      input(type="text" name="user[username]" autofocus)
-    p
-      label Password
-      input(type="password" name="user[password]")
-    p
-      input(type="submit" value="Sign Up")
+  .row.content
+    .col-xs-4.col-xs-offset-4
+      .panel(class="panel panel-default")
+        .panel-heading
+          .panel-default 
+            h4.text-center Doctors Sign Up
+        .desc
+          form(action="/auth/signup" method="POST") 
+            p.text-center
+              label First Name
+              br
+              input(type="text" name="user[firstname]")
+            p.text-center
+              label Last Name
+              br
+              input(type="text" name="user[lastname]")
+            p.text-center
+              label Email
+              br
+              input(type="email" name="user[email]")
+            p.text-center
+              label Username
+              br
+              input(type="text" name="user[username]" autofocus)
+            p.text-center
+              label Password
+              br
+              input(type="password" name="user[password]")
+            p.text-center
+              input(type="submit" value="Sign Up")
