@@ -6,7 +6,7 @@ exports.seed = function(knex, Promise) {
       childname: 'Timmy', 
       parentname: 'Tom', 
       username: 'timmy', 
-      password: 'secret',
+      password: '$2a$10$jW.51sVsOQEbtuO1nM6.juxCnO9DiZsLg8jghQdIT6AlKvifKa.qa',
       doctor_id: 1
     }),
     knex('patients').insert({
@@ -14,7 +14,7 @@ exports.seed = function(knex, Promise) {
       childname: 'Kimmy', 
       parentname: 'Kim', 
       username: 'kimmy', 
-      password: 'secret',
+      password: '$2a$10$jW.51sVsOQEbtuO1nM6.juxCnO9DiZsLg8jghQdIT6AlKvifKa.qa',
       doctor_id: 1
     }),
     knex('patients').insert({
@@ -22,7 +22,7 @@ exports.seed = function(knex, Promise) {
       childname: 'Jimmy', 
       parentname: 'Jim', 
       username: 'jimmy', 
-      password: 'secret',
+      password: '$2a$10$jW.51sVsOQEbtuO1nM6.juxCnO9DiZsLg8jghQdIT6AlKvifKa.qa',
       doctor_id: 2
     }),
   ]);

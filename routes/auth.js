@@ -8,11 +8,11 @@ const helpers = require("../helpers/authHelpers")
 
 // signing up as a doctor
 router.get('/signup', helpers.signedOn, function(req,res){
-  res.render('auth/signup')
+  res.render('auth/signup', {message: req.flash('signupMessage')});
 });
 
 // POST new doctor info into database
-router.post('/signup', function(req,res){
+router.post('/signup', helpers.signupCheck, function(req,res){
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
     bcrypt.hash(req.body.user.password, salt, function(err, hash){
       knex('doctors').insert({
@@ -33,11 +33,11 @@ router.post('/signup', function(req,res){
 
 // login page showing both doctors and patients login
 router.get('/login', helpers.signedOn, function(req,res){
-  res.render('auth/login')
+  res.render('auth/login', {message1: req.flash('loginMessage1'), message2: req.flash('loginMessage2')})
 });
 
 // after successful login, redirect to doctors dashboard
-router.post('/doctor-login', passport.authenticate('local', {
+router.post('/doctor-login', helpers.validInputs, passport.authenticate('local', {
   successRedirect: '/auth/doctors',
   failureRedirect: '/auth/login'
 }));
@@ -48,7 +48,7 @@ router.get('/doctors', helpers.isAuthenticated, (req,res) => {
 });
 
 // after successful login, redirect to /auth/patients to be further redirected
-router.post('/patient-login', passport.authenticate('local', {
+router.post('/patient-login', helpers.validInputs, passport.authenticate('local', {
   successRedirect: '/auth/patients/',
   failureRedirect: '/auth/login'
 }));
