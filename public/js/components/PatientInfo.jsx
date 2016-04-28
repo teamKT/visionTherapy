@@ -28,20 +28,23 @@ window.PatientInfo = React.createClass({
 
   editPatient(event){
     event.preventDefault();
+console.log("All the Worlds PROPS: ", this.props.patient_id, this.props.childname,this.props.username,this.props.parentname)
+    this.props.editPatient(this.props.childname,this.props.username,this.props.parentname,this.props.patient_id)
 
-    $.ajax({
-      method: "PUT",
-      url: `/doctors/${this.props.userid}/patients/${this.props.patient_id}`,
-      dataType: 'json',
-      data: {patient: {
-        childname: this.props.childname,
-        username: this.props.username,
-        parentname: this.props.parentname}}
-    }).then(function(doctor_patients){
-      this.props.editPatient(doctor_patients)
-      this.setVisibility()
+    // $.ajax({
+    //   method: "PUT",
+    //   url: `/doctors/${this.props.userid}/patients/${this.props.patient_id}`,
+    //   dataType: 'json',
+    //   data: {patient: {
+    //     childname: this.state.childname,
+    //     username: this.state.username,
+    //     parentname: this.state.parentname}}
+    // }).then(function(doctor_patients){
+    //   console.log("Return from PUT: ",doctor_patients )
+    //   this.props.editPatient(doctor_patients)
+    //   // this.setVisibility()
 
-    }.bind(this))
+    // }.bind(this))
 
   },
 
@@ -61,7 +64,19 @@ window.PatientInfo = React.createClass({
     }
   },
 
-  handleChange(event){
+  handleChildname(event){
+
+    this.props.onChildChange(event.target.value, this.props.patient_id)
+  
+  },
+
+  handleParentname(event){
+
+    this.props.onChildChange(event.target.value, this.props.patient_id)
+  
+  },
+
+  handleUsername(event){
 
     this.props.onChildChange(event.target.value, this.props.patient_id)
   
@@ -106,17 +121,21 @@ window.PatientInfo = React.createClass({
                 <div className="modal-body">
                     <form className="form-horizontal" onSubmit={this.editPatient}>
                       <div className="form-group">
+
                       <label htmlFor="">Patient: </label>
                       <input  name="[patient]childname" type="text" className="form-control input-lg"  
-                      defaultValue={this.props.childname}></input>
+                      onChange={this.handleChildname} value={this.props.childname}></input>
+
                       <label htmlFor="">User Name: </label>
                       <input  name="[patient]username" type="text" className="form-control input-lg"  
-                      defaultValue={this.props.username}></input>
+                      onChange={this.handleUsername} value={this.props.username}></input>
+
                       <label htmlFor="">Parent: </label>
                       <input name="[patient]parentname" type="text" className="form-control input-lg"  
-                      defaultValue={this.props.parentname}></input>
+                      onChange={this.handleParentname} value={this.props.parentname}></input>
+
                       <input name="[patient]id" type="hidden" className="form-control input-lg"  
-                      defaultValue={this.props.id}></input>
+                      onChange={this.handleChange} value={this.props.id}></input>
                       <button type="submit" className="btn btn-default">Submit</button>
                       </div>
                   </form>

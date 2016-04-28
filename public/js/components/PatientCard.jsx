@@ -23,8 +23,31 @@ window.PatientCard = React.createClass({
     this.setState({doctor_patients: doctor_patients})
   },
 
-    editPatient(doctor_patients){
-    this.setState({doctor_patients: doctor_patients})
+    editPatient(childname, username, parentname, patient_id){
+      console.log("Hi this is the PARENT before AJAX", childname, username, parentname)
+      console.log("USERID:", this.state.userid)
+      console.log("PatientID:", patient_id)
+
+        $.ajax({
+      method: "PUT",
+      url: `/doctors/${this.state.userid}/patients/${patient_id}`,
+      dataType: 'json',
+      data: {patient: {
+        childname: childname,
+        username: username,
+        parentname: parentname}},
+      cache: false,
+      success: function(doctor_patients) {
+        console.log("Do we have SUCCESS?")
+        this.setState({doctor_patients: doctor_patients});
+      }.bind(this),
+      error: function(status, err) {
+        console.error( status, err.toString());
+      }.bind(this)
+    });
+
+
+    
   },
 
 

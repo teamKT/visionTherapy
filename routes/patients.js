@@ -21,20 +21,20 @@ router.get('/new', helpers.isDoctor, (req, res) => {
 // POST the new patient into the database as doctor user
 router.post('/', helpers.isDoctor, (req, res) => {
     knex('patients')
-        .insert({
-            isDoctor: false,
-            childname: req.body.patient.childname,
-            parentname: req.body.patient.parentname,
-            username: req.body.patient.username,
-            password: req.body.patient.password,
-            doctor_id: +req.params.doctor_id
-        })
-        .then(() => {
-            res.redirect(`/doctors/${req.params.doctor_id}`)
-        }).catch(err => {
-            console.log("Error Message: ", err)
-            res.redirect(`/doctors/${req.params.doctor_id}`)
-        })
+      .insert({
+          isDoctor: false,
+          childname: req.body.patient.childname,
+          parentname: req.body.patient.parentname,
+          username: req.body.patient.username,
+          password: req.body.patient.password,
+          doctor_id: +req.params.doctor_id
+      })
+      .then(() => {
+          res.redirect(`/doctors/${req.params.doctor_id}`)
+      }).catch(err => {
+          console.log("Error Message: ", err)
+          res.redirect(`/doctors/${req.params.doctor_id}`)
+      })
 });
 
 // VIEW patient's dashboard
@@ -84,35 +84,52 @@ router.get('/:id/edit', helpers.isDoctor, (req, res) => {
 // PUT
 
 router.put('/:id', helpers.isDoctor, (req, res) => {
-    knex('patients').update(req.body.patient).where('id', +req.params.id)
-        .then(() => {
-          res.redirect("/auth/doctors/")
-        })
+  console.log("Req.Body.Patient: " ,req.body.patient)
+    knex('patients').update(req.body.patient).where('id', +req.params.id).returning('doctor_id')
+      .then((doctor_id) => {
+          console.log("What do we get back?", doctor_id)
+          knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
+            .where('doctors.id', doctor_id[0])
+            .then((data) => {
+            console.log("What is DATA: ", data)
+                res.format({
+                    'text/html': () => {
+                        res.redirect('/')
+                    },
+                    'application/json': () => {
+                        res.send(data)
+                    },
+                    'default': () => {
+                        // log the request and respond with 406
+                        res.status(406).send('Not Acceptable');
+                    }
+                })
+            })
+      })
 });
 
 // DELETE patient as doctor user
 router.delete('/:id', helpers.isDoctor, (req, res) => {
     knex('patients').where('id', +req.params.id).del().returning('doctor_id')
-        .then((doctor_id) => {
-            console.log("What do we get back?", doctor_id)
-            knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
-                .where('doctors.id', doctor_id[0])
-                .then((data) => {
-                    res.format({
-                        'text/html': () => {
-                            res.redirect('/')
-                        },
-                        'application/json': () => {
-                            console.log("DATA from DEL: ", JSON.stringify(data));
-                            res.send(data)
-                        },
-                        'default': () => {
-                            // log the request and respond with 406
-                            res.status(406).send('Not Acceptable');
-                        }
-                    })
+      .then((doctor_id) => {
+          console.log("What do we get back?", doctor_id)
+          knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
+            .where('doctors.id', doctor_id[0])
+            .then((data) => {
+                res.format({
+                    'text/html': () => {
+                        res.redirect('/')
+                    },
+                    'application/json': () => {
+                        res.send(data)
+                    },
+                    'default': () => {
+                        // log the request and respond with 406
+                        res.status(406).send('Not Acceptable');
+                    }
                 })
-        })
+            })
+      })
 });
 
 
