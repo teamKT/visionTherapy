@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router({ mergeParams: true })
 const knex = require("../db/knex");
 const helpers = require('../helpers/authHelpers');
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 
 router.use(helpers.isAuthenticated);
 router.use(helpers.currentUser);
@@ -20,13 +22,15 @@ router.get('/new', helpers.isDoctor, (req, res) => {
 
 // POST the new patient into the database as doctor user
 router.post('/', helpers.isDoctor, (req, res) => {
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+    bcrypt.hash(req.body.patient.password, salt, function(err, hash){
     knex('patients')
       .insert({
           isDoctor: false,
           childname: req.body.patient.childname,
           parentname: req.body.patient.parentname,
           username: req.body.patient.username,
-          password: req.body.patient.password,
+          password: hash,
           doctor_id: +req.params.doctor_id
       })
       .then(() => {
@@ -34,7 +38,9 @@ router.post('/', helpers.isDoctor, (req, res) => {
       }).catch(err => {
           console.log("Error Message: ", err)
           res.redirect(`/doctors/${req.params.doctor_id}`)
-      })
+      });
+    });
+  });
 });
 
 // VIEW patient's dashboard
@@ -52,6 +58,7 @@ router.get('/:patient_id', helpers.isPatient, helpers.ensureCorrectUser, functio
                     'exercises.name',
                     'exercises.id',
                     'exercises.difficulty',
+                    'plans.id as plan_id',
                     'plans.patient_id',
                     'plans.routine',
                     'plans.outcome',

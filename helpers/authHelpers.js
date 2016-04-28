@@ -68,6 +68,19 @@ const authHelpers = {
       return res.redirect('/auth/signup');
     } 
     else return next();
+  },
+  editCheck(req,res,next){
+    if(!req.body.doctor.password || 
+       !req.body.doctor.firstname || !req.body.doctor.lastname ||
+       !req.body.doctor.email) {
+      req.flash('editMessage','all fields must not be empty');
+      return res.redirect(`/doctors/${req.params.id}/edit`);
+    } 
+    if (req.body.doctor.password.length < 6) {
+      req.flash('editMessage', 'password must be at least 6 characters')
+      return res.redirect(`/doctors/${req.params.id}/edit`);
+    } 
+    else return next();
   }
 }
 

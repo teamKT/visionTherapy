@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router()
 const knex = require("../db/knex");
 const helpers = require('../helpers/authHelpers');
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 
 router.use(helpers.isAuthenticated);
 router.use(helpers.isDoctor);
@@ -35,7 +37,7 @@ router.get('/:id', helpers.ensureCorrectUser, function(req,res){
 })
 // EDIT Doctor
 router.get('/:id/edit', helpers.ensureCorrectUser, function(req,res){
-  res.render('doctors/edit');
+  res.render('doctors/edit', {message: req.flash('editMessage')});
 })
 
 // GET Doctor's patient exercises info in JSON
@@ -59,11 +61,16 @@ router.delete('/:id', helpers.ensureCorrectUser, function(req,res){
 })
 
 // PUT 
-router.put('/:id', helpers.ensureCorrectUser, function(req,res){
-  knex('doctors').update(req.body.doctor).where('doctors.id', +req.params.id).returning('id')
-    .then((id)=>{
-      res.redirect(`/doctors/${id}`);      
-    })
+router.put('/:id', helpers.ensureCorrectUser, helpers.editCheck, function(req,res){
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+    bcrypt.hash(req.body.doctor.password, salt, function(err, hash){
+      req.body.doctor.password = hash;
+      knex('doctors').update(req.body.doctor).where('doctors.id', +req.params.id).returning('id')
+        .then((id)=>{
+          res.redirect(`/doctors/${id}`);      
+      })
+    });
+  });
 })
 
 
