@@ -68,7 +68,7 @@ router.get('/logout', (req,res) => {
 });
 
 // return the session value when the client checks
-router.get('/userid', function(req,res){
+router.get('/get_patient_id', function(req,res){
   console.log("# Current User ID check "+ req.user.id);
   knex('patients').where('id', +req.user.id).first()
   .then((user) =>{

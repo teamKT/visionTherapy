@@ -1,0 +1,30 @@
+html, body, .container {
+    height: 95%;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.jumbotron{
+  background: url('/images/carousel3.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: white; 
+  height: 60%;
+  opacity: 0.8;
+  width: 100%;
+}
+h3 {
+  color: white;
+  margin: 5%;
+  font-family: Optima;
+}
+
+.right {
+  float: right;
+}
+
+   
