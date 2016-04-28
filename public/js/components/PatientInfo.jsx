@@ -1,7 +1,8 @@
 window.PatientInfo = React.createClass({
   getInitialState(){
     return {
-      exercises: []
+      exercises: [],
+      editVisibility: "hidden"
     }
   },
 
@@ -25,8 +26,23 @@ window.PatientInfo = React.createClass({
     }.bind(this))
   },
 
-  editPatient(){
-    this.props.editPatient(this.props.patient_id)
+  editPatient(event){
+    event.preventDefault();
+
+    $.ajax({
+      method: "PUT",
+      url: `/doctors/${this.props.userid}/patients/${this.props.patient_id}`,
+      dataType: 'json',
+      data: {patient: {
+        childname: this.props.childname,
+        username: this.props.username,
+        parentname: this.props.parentname}}
+    }).then(function(doctor_patients){
+      this.props.editPatient(doctor_patients)
+      this.setVisibility()
+
+    }.bind(this))
+
   },
 
   update(){
@@ -35,6 +51,21 @@ window.PatientInfo = React.createClass({
     }.bind(this),"json")
   },
 
+
+  setVisibility(){
+    if(this.state.editVisibility === "hidden") {
+      this.setState({editVisibility: ""})      
+    }
+    else {
+      this.setState({editVisibility: "hidden"})      
+    }
+  },
+
+  handleChange(event){
+
+    this.props.onChildChange(event.target.value, this.props.patient_id)
+  
+  },
   render(){
 
     var patientExercises = this.state.exercises.map(function(exercise, index) {
@@ -56,12 +87,45 @@ window.PatientInfo = React.createClass({
           <div className="panel-heading">
           <h3 className="panel-title">Name of Patient: <strong>{this.props.childname}</strong> (User ID {this.props.patient_id})</h3>
             <button className="btn btn-danger btn-xs pull-right" onClick={this.deletePatient}>Delete Patient</button>
-            <button className="btn btn-default btn-xs pull-right" onClick={this.editPatient}>edit patient</button>
+            <button className="btn btn-default btn-xs pull-right open-modal" onClick={this.setVisibility}>edit patient</button>
             <a href={url}><button className="btn btn-info btn-xs pull-right">Add Exercise</button></a>
           <p>Name of Parent: {this.props.parentname}</p>
 
           <div>{patientExercises}</div>
             </div>
+
+          <div>
+            
+            <div className={"modal-dialog " + this.state.editVisibility}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="btn btn-default pull-right" data-dismiss="modal" 
+                  onClick={this.setVisibility}>Close</button>
+                  <h4 className="modal-title">Edit Patient {this.props.childname} (ID: {this.props.patient_id})</h4>
+                </div>
+                <div className="modal-body">
+                    <form className="form-horizontal" onSubmit={this.editPatient}>
+                      <div className="form-group">
+                      <label htmlFor="">Patient: </label>
+                      <input  name="[patient]childname" type="text" className="form-control input-lg"  
+                      defaultValue={this.props.childname}></input>
+                      <label htmlFor="">User Name: </label>
+                      <input  name="[patient]username" type="text" className="form-control input-lg"  
+                      defaultValue={this.props.username}></input>
+                      <label htmlFor="">Parent: </label>
+                      <input name="[patient]parentname" type="text" className="form-control input-lg"  
+                      defaultValue={this.props.parentname}></input>
+                      <input name="[patient]id" type="hidden" className="form-control input-lg"  
+                      defaultValue={this.props.id}></input>
+                      <button type="submit" className="btn btn-default">Submit</button>
+                      </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
           </div>
           <hr/>
         </div>

@@ -12,6 +12,7 @@ router.get('/', function(req,res){
   res.redirect(`/doctors/${req.user.id}`)
 });
 
+
 // VIEW doctor's dashboard
 router.get('/:id', helpers.ensureCorrectUser, function(req,res){
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
@@ -32,6 +33,10 @@ router.get('/:id', helpers.ensureCorrectUser, function(req,res){
     })
   });
 })
+// EDIT Doctor
+router.get('/:id/edit', helpers.ensureCorrectUser, function(req,res){
+  res.render('doctors/edit');
+})
 
 // GET Doctor's patient exercises info in JSON
 router.get('/:id/ex', function(req,res){
@@ -43,10 +48,6 @@ router.get('/:id/ex', function(req,res){
   
 })
 
-// EDIT Doctor
-router.get('/:id/edit', helpers.ensureCorrectUser, function(req,res){
-  res.render('doctors/edit');
-})
 
 // DELETE Doctor
 router.delete('/:id', helpers.ensureCorrectUser, function(req,res){
@@ -54,6 +55,14 @@ router.delete('/:id', helpers.ensureCorrectUser, function(req,res){
     .then(()=>{
       req.logout();
       res.redirect('/');      
+    })
+})
+
+// PUT 
+router.put('/:id', helpers.ensureCorrectUser, function(req,res){
+  knex('doctors').update(req.body.doctor).where('doctors.id', +req.params.id).returning('id')
+    .then((id)=>{
+      res.redirect(`/doctors/${id}`);      
     })
 })
 

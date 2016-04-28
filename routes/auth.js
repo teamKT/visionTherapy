@@ -67,6 +67,27 @@ router.get('/logout', (req,res) => {
   res.redirect('/auth/login');
 });
 
+//get doctors ID
+router.get('/get_doctor_id', function(req,res){
+  console.log("# Current Doctor ID check "+ req.user.id);
+  knex('doctors').where('id', +req.user.id).first().returning("*")
+  .then((data) =>{
+    res.format({
+      'text/html': () => {
+          res.redirect('/')
+      },
+      'application/json': () => {
+          console.log("DATA from PUT: ", JSON.stringify(data));
+          res.send(data)
+      },
+      'default': () => {
+          // log the request and respond with 406
+          res.status(406).send('Not Acceptable');
+      }
+    })
+  })  
+});
+
 // return the session value when the client checks
 router.get('/get_patient_id', function(req,res){
   console.log("# Current User ID check "+ req.user.id);
