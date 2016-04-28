@@ -6,7 +6,7 @@ block content
       .panel-title Edit Patient
     .panel-body
       form.form-horizontal(action="/doctors/#{currentUser.id}/patients/#{patient.id}?_method=put" method="POST")
-        .form-group
+        .form-group.formgroup-lg
           p
             label Full Name:
             input.form-control.input-lg(type="text" name="patient[childname]"  value="#{patient.childname}" placeholder="Enter Child Name")

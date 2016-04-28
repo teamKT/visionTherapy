@@ -75,7 +75,7 @@ router.get('/:patient_id', helpers.isPatient, helpers.ensureCorrectUser, functio
 })
 
 // EDIT
-router.get('/edit/:id', helpers.isDoctor, (req, res) => {
+router.get('/:id/edit', helpers.isDoctor, (req, res) => {
     knex('patients').where("id", +req.params.id).first().then(patient => {
         res.render("patients/edit", { patient })
     });

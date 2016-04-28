@@ -1,15 +1,39 @@
 extends ../layout.jade
 
 block content
-  p
-    a(href="/auth/logout") Log Out
-  h1 Settings for Doctor #{currentUser.id} 
-    span.settings
-      a(href="/doctors/#{currentUser.id}") Return
+  .panel.panel-default
+    .panel-heading
+      .panel-title Settings for User #{currentUser.username}
+    .panel-body
 
-  p FirstName: #{currentUser.firstname}
-  p LastName: #{currentUser.lastname}
-  p Username: #{currentUser.username}
-  p Email: #{currentUser.email}
-  form(action="/doctors/#{currentUser.id}?_method=DELETE" method="POST")
-    input(type="submit" value="DELETE ACCOUNT")
+      form.form-horizontal(action="/doctors/#{currentUser.id}?_method=PUT" method="POST")
+        .form-group.form-group-lg
+          p
+            input.form-control.input-lg(type="text" name="doctor[firstname]" 
+            value="#{currentUser.firstname}" placeholder="Enter First Name")
+          p
+            input.form-control.input-lg(type="text" name="doctor[lastname]" 
+            value="#{currentUser.lastname}" placeholder="Enter Last Name")
+          p
+            input.form-control.input-lg(type="text" name="doctor[email]" 
+            value="#{currentUser.email}" placeholder="Enter Email")  
+          p
+            input.form-control.input-lg(type="password" name="doctor[password]" 
+            value="#{currentUser.password}" placeholder="Enter Password")
+          p
+            input.btn.btn-default.push-right(type="submit" value="Submit")
+            a(href="/doctors/#{currentUser.id}")
+              button.btn.btn-default Cancel
+
+        form.form-horizontal(action="/doctors/#{currentUser.id}?_method=DELETE" method="POST")
+        input.btn.btn-danger.btn-lg.btn-block(type="submit" value="DELETE ACCOUNT")
+
+
+
+
+
+
+
+
+    
+    
