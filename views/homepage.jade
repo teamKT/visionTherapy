@@ -1,8 +1,14 @@
 extends ./layout.jade
-
+block links
+  link(rel="stylesheet", href="/css/homepage.css")
 block content
-  h1 Welcome to the Homepage
-  p
-    a(href='/auth/signup') Sign Up
-  p
-    a(href='/auth/login') Sign In
+  .jumbotron
+    h1.display-3 Vision Therapy Online
+      p.lead
+        | Using state of the art technology to connect patients and eyecare providers.
+      hr.m-y-2 
+      .desc 
+        h3 "Developments in medical technology have long been confined to procedural or pharmaceutical advances, while neglecting a most basic and essential component of medicine: patient information management."
+      hr.m-y-2
+      p(class="lead, right")
+        a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
