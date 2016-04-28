@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
       lastname: 'Smith', 
       email: 'joe@gmail.com', 
       username: 'joe',
-      password: 'secret'
+      password: '$2a$10$jW.51sVsOQEbtuO1nM6.juxCnO9DiZsLg8jghQdIT6AlKvifKa.qa' 
     }),
     knex('doctors').insert({
       isDoctor: true,
@@ -15,7 +15,7 @@ exports.seed = function(knex, Promise) {
       lastname: 'Smith', 
       email: 'mary@gmail.com', 
       username: 'mary',
-      password: 'secret'
+      password: '$2a$10$jW.51sVsOQEbtuO1nM6.juxCnO9DiZsLg8jghQdIT6AlKvifKa.qa'
     })
   ]);
 };

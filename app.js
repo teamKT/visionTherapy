@@ -8,6 +8,7 @@ const session = require('cookie-session');
 const passport = require('passport')
 const routes = require('./routes/index');
 const helpers = require('./helpers/authHelpers')
+const flash = require('connect-flash');
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').load();
 }
@@ -23,6 +24,7 @@ app.use(session({
 // initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 require('./helpers/passport');
 

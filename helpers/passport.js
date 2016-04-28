@@ -11,13 +11,11 @@ passport.use(new passportLocal.Strategy({
     if (req.originalUrl === '/auth/doctor-login') {
       knex('doctors').where({username}).first().then((user) =>{
         if (!user) {
-          return done(null, false);
+          return done(null, false, req.flash('loginMessage1','Incorrect username/password'));
         }
-        // DISABLED PASSWORD MATCHING FOR SIGNING IN
-        // console.log(password);
-        // if (!bcrypt.compareSync(password, user.password)) {
-        //   return done (null, false);
-        // }
+        if (!bcrypt.compareSync(password, user.password)) {
+          return done (null, false, req.flash('loginMessage1','Incorrect username/password'));
+        }
         else {
           return done(null, user);
         }
@@ -27,12 +25,11 @@ passport.use(new passportLocal.Strategy({
     } else if (req.originalUrl === '/auth/patient-login') {
       knex('patients').where({username}).first().then((user) =>{
         if (!user) {
-          return done(null, false);
+          return done(null, false, req.flash('loginMessage2','Incorrect username/password'));
         }
-        // DISABLED PASSWORD MATCHING FOR SIGNING IN
-        // if (!bcrypt.compareSync(password, user.password)) {
-        //   return done (null, false);
-        // }
+        if (!bcrypt.compareSync(password, user.password)) {
+          return done (null, false, req.flash('loginMessage2','Incorrect username/password'));
+        }
         else {
           return done(null, user);
         }

@@ -23,6 +23,8 @@ block content
               input(type="password" name="user[password]")
             p.text-center
               input(type="submit" value="Submit")
+            if (message1)
+              p.text-center.text-danger= message1
     .col-xs-3.col-xs-offset-2
       .panel(class="panel panel-default")
         .panel-heading
@@ -40,5 +42,8 @@ block content
                 input(type="password" name="user[password]")
               p.text-center
                 input(type="submit" value="Submit")
+              if (message2)
+                p.text-center.text-danger= message2
+
 
 
