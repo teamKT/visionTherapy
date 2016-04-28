@@ -9,7 +9,7 @@ window.PatientDash = React.createClass({
 
   componentWillMount(){
     // get id's from currentUser helper
-    $.getJSON("/auth/userid").done(function(data){
+    $.getJSON("/auth/get_patient_id").done(function(data){
       this.setState({patientid: data.childInfo.id, doctorid: data.childInfo.doctor_id});
       // request data for pt dashboard, how to get docor id from clientside?
       console.log('data pt id and doc id', data.childInfo)
