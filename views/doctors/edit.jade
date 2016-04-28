@@ -24,6 +24,8 @@ block content
             input.btn.btn-default.push-right(type="submit" value="Submit")
             a(href="/doctors/#{currentUser.id}")
               button.btn.btn-default Cancel
+            if (message)
+              p.text-center.text-danger= message
 
         form.form-horizontal(action="/doctors/#{currentUser.id}?_method=DELETE" method="POST")
         input.btn.btn-danger.btn-lg.btn-block(type="submit" value="DELETE ACCOUNT")
