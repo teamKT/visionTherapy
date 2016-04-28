@@ -8,13 +8,13 @@ block content
       form.form-horizontal(action="/doctors/#{currentUser.id}/patients" method="POST")
         .form-group.form-group-lg
           p
-            input.form-control.input-lg(type="text" name="patient[childname]" placeholder="Enter Child's Name")
-          p
-            input.form-control.input-lg(type="text" name="patient[parentname]" placeholder="Enter Parent Name")
+            input.form-control.input-lg(type="text" name="patient[childname]" placeholder="Enter Child's Name" autofocus)
           p
             input.form-control.input-lg(type="text" name="patient[username]" placeholder="Enter Child's Screen Name")
           p
             input.form-control.input-lg(type="password" name="patient[password]" placeholder="Enter Child's Password")
+          p
+            input.form-control.input-lg(type="text" name="patient[parentname]" placeholder="Enter Parent Name")
           
         input.btn.btn-default.push-right.inline(type="submit" value="Submit")
       a(href="/doctors/#{currentUser.id}")
