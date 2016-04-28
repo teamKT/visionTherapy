@@ -47,6 +47,28 @@ const authHelpers = {
       return res.redirect('/auth/doctors');
     }
   },
+  validInputs(req,res,next){
+    if(!req.body.user.username || !req.body.user.password) {
+      if(req.originalUrl === '/auth/doctor-login')
+        req.flash('loginMessage1','username/password field empty');
+      else 
+        req.flash('loginMessage2','username/password field empty');
+      return res.redirect('/auth/login');
+    } else return next();
+  },
+  signupCheck(req,res,next){
+    if(!req.body.user.username || !req.body.user.password || 
+       !req.body.user.firstname || !req.body.user.lastname ||
+       !req.body.user.email) {
+      req.flash('signupMessage','all fields must not be empty');
+      return res.redirect('/auth/signup');
+    } 
+    if (req.body.user.password.length < 6) {
+      req.flash('signupMessage', 'password must be at least 6 characters')
+      return res.redirect('/auth/signup');
+    } 
+    else return next();
+  }
 }
 
 module.exports = authHelpers;
