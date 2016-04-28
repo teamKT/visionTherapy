@@ -86,7 +86,7 @@ router.get('/edit/:id', helpers.isDoctor, (req, res) => {
 router.put('/:id', helpers.isDoctor, (req, res) => {
     knex('patients').update(req.body.patient).where('id', +req.params.id)
         .then(() => {
-          res.redirect(`/${user.id}`)
+          res.redirect("/auth/doctors/")
         })
 });
 

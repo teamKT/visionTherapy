@@ -30,7 +30,7 @@ thead {
 }
 
 
-#patientCard, #patientExercises, #patientInfo, .settings {
+.content {
+  margin-top: 10%;
+  
 
-
-}
