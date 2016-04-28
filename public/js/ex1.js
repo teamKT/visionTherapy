@@ -26,7 +26,7 @@ window.Ex1 = React.createClass({
         </div>
         <form id="slider">
           <span>Closer </span>
-          <input id ="difficulty" ref="slider" type="range" name="difficulty" min="0" max="250" step="5" value={this.state.value} onChange={this.handleSlider} />
+          <input id="difficulty" ref="slider" type="range" name="difficulty" min="0" max="250" step="5" value={this.state.value} onChange={this.handleSlider} />
           <span> Further </span>
         </form>
       </div>
@@ -35,14 +35,3 @@ window.Ex1 = React.createClass({
 });
 
 ReactDOM.render(<Ex1 />, document.getElementById("container"));
-
-// #ex_name Red-Green Sliding Tranaglyph
-
-// #ex_contain
-//   img(id="red", class="tranaglyph", src="/images/redCircle.png", alt="redCircle.png")
-//   img(id="green", class="tranaglyph", src="/images/greenCircle.png", alt="greenCircle.png")
-
-// form(id="slider")
-//   span Closer 
-//   input(type="range", name="difficulty", min="0", max="25", step="1", value="0") 
-//   span  Further
