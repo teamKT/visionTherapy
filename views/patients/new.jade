@@ -15,7 +15,8 @@ block content
             input.form-control.input-lg(type="text" name="patient[username]" placeholder="Enter Child's Screen Name")
           p
             input.form-control.input-lg(type="password" name="patient[password]" placeholder="Enter Child's Password")
-          p
-            input.btn.btn-default.push-right(type="submit" value="Submit")
-            a(href="/doctors/#{currentUser.id}")
-              button.btn.btn-default Cancel
+          
+        input.btn.btn-default.push-right.inline(type="submit" value="Submit")
+      a(href="/doctors/#{currentUser.id}")
+        button.btn.btn-default.push-right.inline Cancel
+    
