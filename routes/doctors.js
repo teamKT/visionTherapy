@@ -16,7 +16,7 @@ router.get('/', function(req,res){
 // VIEW doctor's dashboard
 router.get('/:id', helpers.ensureCorrectUser, function(req,res){
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
-    .where('doctors.id', +req.params.id)
+    .where('doctors.id', +req.params.id).orderBy('childname', 'asc')
     .then((doctor_patients) => {
     res.format({
       'text/html':() =>{
