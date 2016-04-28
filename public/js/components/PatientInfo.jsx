@@ -28,23 +28,10 @@ window.PatientInfo = React.createClass({
 
   editPatient(event){
     event.preventDefault();
-console.log("All the Worlds PROPS: ", this.props.patient_id, this.props.childname,this.props.username,this.props.parentname)
+console.log("All the World's PROPS: ", this.props.patient_id, this.props.childname,this.props.username,this.props.parentname)
     this.props.editPatient(this.props.childname,this.props.username,this.props.parentname,this.props.patient_id)
+    this.setVisibility();
 
-    // $.ajax({
-    //   method: "PUT",
-    //   url: `/doctors/${this.props.userid}/patients/${this.props.patient_id}`,
-    //   dataType: 'json',
-    //   data: {patient: {
-    //     childname: this.state.childname,
-    //     username: this.state.username,
-    //     parentname: this.state.parentname}}
-    // }).then(function(doctor_patients){
-    //   console.log("Return from PUT: ",doctor_patients )
-    //   this.props.editPatient(doctor_patients)
-    //   // this.setVisibility()
-
-    // }.bind(this))
 
   },
 
@@ -66,19 +53,19 @@ console.log("All the Worlds PROPS: ", this.props.patient_id, this.props.childnam
 
   handleChildname(event){
 
-    this.props.onChildChange(event.target.value, this.props.patient_id)
+    this.props.onChildChange(event.target.value, this.props.patient_id, "childname")
   
   },
 
   handleParentname(event){
 
-    this.props.onChildChange(event.target.value, this.props.patient_id)
+    this.props.onChildChange(event.target.value, this.props.patient_id, "parentname")
   
   },
 
   handleUsername(event){
 
-    this.props.onChildChange(event.target.value, this.props.patient_id)
+    this.props.onChildChange(event.target.value, this.props.patient_id,"username")
   
   },
   render(){

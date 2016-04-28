@@ -29,6 +29,10 @@ thead {
   font-size: 16px;
 }
 
+.inline {
+  display: inline-block;
+}
+
 
 .content {
   margin-top: 10%;

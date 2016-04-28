@@ -93,9 +93,9 @@ router.put('/:id', helpers.isDoctor, (req, res) => {
             .then((data) => {
             console.log("What is DATA: ", data)
                 res.format({
-                    'text/html': () => {
-                        res.redirect('/')
-                    },
+                    // 'text/html': () => {
+                    //     res.redirect('/')
+                    // },
                     'application/json': () => {
                         res.send(data)
                     },
@@ -117,9 +117,9 @@ router.delete('/:id', helpers.isDoctor, (req, res) => {
             .where('doctors.id', doctor_id[0])
             .then((data) => {
                 res.format({
-                    'text/html': () => {
-                        res.redirect('/')
-                    },
+                    // 'text/html': () => {
+                    //     res.redirect('/')
+                    // },
                     'application/json': () => {
                         res.send(data)
                     },
