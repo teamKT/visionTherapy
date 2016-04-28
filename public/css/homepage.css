@@ -17,14 +17,22 @@ html, body, .container {
   opacity: 0.8;
   width: 100%;
 }
+
+h2 {
+  color: white;
+}
+
 p {
   font-size: 1.5em;
   color: white;
 }
 
+p.lead {
+  margin-left: 3%;
+}
+
 p.quote {
   font-family: Optima;
-  margin: 5%;
 }
 
 .right {
