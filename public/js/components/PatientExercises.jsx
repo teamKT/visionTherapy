@@ -12,9 +12,9 @@ window.PatientExercises = React.createClass({
 
   render(){
     return <div>
-      <h4> Exercise Name: {this.props.name}
+      <p className="text"> Exercise Name: {this.props.name}
       <button className="btn btn-danger btn-xs pull-right" onClick={this.deleteExercise}>X</button>
-      </h4>
+      </p>
     </div>  
   }
 });

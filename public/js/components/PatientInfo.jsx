@@ -15,20 +15,17 @@ window.PatientInfo = React.createClass({
 
   deletePatient(){
     // this.props.deletePatient(this.props.patient_id)
-    console.log("userid in deletePatient" + this.props.userid);
     $.ajax({
       method: "DELETE",
       url: `/doctors/${this.props.userid}/patients/${this.props.patient_id}`,
       dataType: 'json'
     }).then(function(doctor_patients){
-      console.log("After delete: ", doctor_patients)
       this.props.deletePatient(doctor_patients)
     }.bind(this))
   },
 
   editPatient(event){
     event.preventDefault();
-console.log("All the World's PROPS: ", this.props.patient_id, this.props.childname,this.props.username,this.props.parentname)
     this.props.editPatient(this.props.childname,this.props.username,this.props.parentname,this.props.patient_id)
     this.setVisibility();
 
@@ -40,7 +37,6 @@ console.log("All the World's PROPS: ", this.props.patient_id, this.props.childna
       this.setState({exercises})
     }.bind(this),"json")
   },
-
 
   setVisibility(){
     if(this.state.editVisibility === "hidden") {
@@ -68,6 +64,24 @@ console.log("All the World's PROPS: ", this.props.patient_id, this.props.childna
     this.props.onChildChange(event.target.value, this.props.patient_id,"username")
   
   },
+
+  handleExercises(event){
+
+    this.props.onChildChange(event.target.value, this.props.patient_id,"exercises")
+  
+  },
+
+  handleInstructions(event){
+
+    this.props.onChildChange(event.target.value, this.props.patient_id,"instructions")
+  
+  },
+
+  addExercise(){
+
+
+  },
+
   render(){
 
     var patientExercises = this.state.exercises.map(function(exercise, index) {
@@ -81,23 +95,23 @@ console.log("All the World's PROPS: ", this.props.patient_id, this.props.childna
           />
     },this);
 
+
     var url = `/doctors/${this.props.doctor_id}/patients/${this.props.patient_id}/exercises/new` 
 
       return (
         <div>
           <div className="panel panel-default">
           <div className="panel-heading">
-          <h3 className="panel-title">Name of Patient: <strong>{this.props.childname}</strong> (User ID {this.props.patient_id})</h3>
+          <h3 className="panel-title">Name of Patient: <strong>{this.props.childname}</strong> (User: {this.props.username})</h3>
             <button className="btn btn-danger btn-xs pull-right" onClick={this.deletePatient}>Delete Patient</button>
             <button className="btn btn-default btn-xs pull-right open-modal" onClick={this.setVisibility}>edit patient</button>
             <a href={url}><button className="btn btn-info btn-xs pull-right">Add Exercise</button></a>
-          <p>Name of Parent: {this.props.parentname}</p>
 
-          <div>{patientExercises}</div>
-            </div>
+             <p>Name of Parent: {this.props.parentname}</p>
 
+              <div>{patientExercises}</div>
+          </div>
           <div>
-            
             <div className={"modal-dialog " + this.state.editVisibility}>
               <div className="modal-content">
                 <div className="modal-header">
@@ -127,13 +141,10 @@ console.log("All the World's PROPS: ", this.props.patient_id, this.props.childna
                       </div>
                   </form>
                 </div>
-
               </div>
             </div>
           </div>
-
           </div>
-          <hr/>
         </div>
       )
   }

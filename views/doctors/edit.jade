@@ -19,7 +19,7 @@ block content
             value="#{currentUser.email}" placeholder="Enter Email")  
           p
             input.form-control.input-lg(type="password" name="doctor[password]" 
-            value="#{currentUser.password}" placeholder="Enter Password")
+            value="#{currentUser.password}" placeholder="Enter new Password")
           p
             input.btn.btn-default.push-right(type="submit" value="Submit")
             a(href="/doctors/#{currentUser.id}")
@@ -27,7 +27,7 @@ block content
             if (message)
               p.text-center.text-danger= message
 
-        form.form-horizontal(action="/doctors/#{currentUser.id}?_method=DELETE" method="POST")
+      form.form-horizontal(action="/doctors/#{currentUser.id}?_method=DELETE" method="POST")
         input.btn.btn-danger.btn-lg.btn-block(type="submit" value="DELETE ACCOUNT")
 
 
