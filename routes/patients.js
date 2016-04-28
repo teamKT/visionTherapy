@@ -52,6 +52,7 @@ router.get('/:patient_id', helpers.isPatient, helpers.ensureCorrectUser, functio
                     'exercises.name',
                     'exercises.id',
                     'exercises.difficulty',
+                    'plans.id as plan_id',
                     'plans.patient_id',
                     'plans.routine',
                     'plans.outcome',
