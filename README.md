@@ -17,7 +17,8 @@ Technologies Used
 <img src="https://winio.herokuapp.com/images/knex.png" alt="knex" height="100">
 <img src="https://winio.herokuapp.com/images/mocha.png" alt="mocha" width="100" height="100">
 
-Available Test Accounts
+Available Test Accounts on Heroku site
+https://vision-therapy-app.herokuapp.com/
 --
 1. Doctor
   username: gunther, password: secret
