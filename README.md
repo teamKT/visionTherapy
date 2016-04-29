@@ -54,7 +54,10 @@ To run the app:
 
 To run the tests:
 
+  1. create test db:
+
   ```sh
+  createdb project2_app_test
   npm test
   ```
 

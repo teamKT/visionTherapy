@@ -1,4 +1,5 @@
 // require all the things
+const favicon = require('serve-favicon');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -9,6 +10,8 @@ const passport = require('passport')
 const routes = require('./routes/index');
 const helpers = require('./helpers/authHelpers')
 const flash = require('connect-flash');
+
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').load();
 }
