@@ -11,3 +11,7 @@ block content
       hr.m-y-2
       p(class="lead, right")
         a.btn.btn-primary.btn-lg(href='/about', role='button') Learn more
+        form(action="/auth/sample", method="post")
+          input(type="hidden", name="user[username]", value="sample")
+          input(type="hidden", name="user[password]", value="secret")
+          button(type="submit") Go

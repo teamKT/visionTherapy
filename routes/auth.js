@@ -42,6 +42,12 @@ router.post('/doctor-login', helpers.validInputs, passport.authenticate('local',
   failureRedirect: '/auth/login'
 }));
 
+// sample login
+router.post('/sample', passport.authenticate('local', {
+  successRedirect: '/doctors/sample',
+  failureRedirect: '/auth/login'
+}));
+
 // redirects doctors to right page after sign in
 router.get('/doctors', helpers.isAuthenticated, (req,res) => {
   res.redirect('/doctors/' + req.user.id)

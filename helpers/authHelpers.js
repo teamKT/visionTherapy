@@ -1,3 +1,5 @@
+const knex = require('../db/knex');
+
 const authHelpers = {
   currentUser(req, res, next) {
     if (req.isAuthenticated()) {
@@ -20,7 +22,7 @@ const authHelpers = {
     }
   },
   isAuthenticated(req,res,next){
-    if (req.isAuthenticated()) return next()
+    if (req.isAuthenticated()) return next();
     else res.redirect('/')
   },
   signedOn(req,res,next){
