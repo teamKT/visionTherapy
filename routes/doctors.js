@@ -37,6 +37,7 @@ router.get('/sample', function(req,res){
 
 // VIEW doctor's dashboard
 router.get('/:id', helpers.ensureCorrectUser, function(req,res){
+  if (req.user.id === 99) res.redirect('/doctors/sample');
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
     .where('doctors.id', +req.params.id).orderBy('childname', 'asc')
     .then((doctor_patients) => {

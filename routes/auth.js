@@ -42,15 +42,21 @@ router.post('/doctor-login', helpers.validInputs, passport.authenticate('local',
   failureRedirect: '/auth/login'
 }));
 
-// sample login
-router.post('/sample', passport.authenticate('local', {
+// sample doctors login
+router.post('/doctorSample', passport.authenticate('local', {
   successRedirect: '/doctors/sample',
+  failureRedirect: '/auth/login'
+}));
+
+// samp;e patients login
+router.post('/patientSample', passport.authenticate('local', {
+  successRedirect: '/doctors/sample/patients/99',
   failureRedirect: '/auth/login'
 }));
 
 // redirects doctors to right page after sign in
 router.get('/doctors', helpers.isAuthenticated, (req,res) => {
-  res.redirect('/doctors/' + req.user.id)
+  res.redirect('/doctors/' + req.user.id);
 });
 
 // after successful login, redirect to /auth/patients to be further redirected
@@ -70,7 +76,7 @@ router.get('/patients', helpers.isAuthenticated, (req,res) => {
 // logout passport session
 router.get('/logout', (req,res) => {
   req.logout();
-  res.redirect('/auth/login');
+  res.redirect('/');
 });
 
 //get doctors ID
