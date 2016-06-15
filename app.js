@@ -1,4 +1,5 @@
 // require all the things
+const favicon = require('serve-favicon');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -9,6 +10,8 @@ const passport = require('passport')
 const routes = require('./routes/index');
 const helpers = require('./helpers/authHelpers')
 const flash = require('connect-flash');
+
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').load();
 }
@@ -46,7 +49,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-if (app.get('env') === 'development') {
+if (app.get('env') === 'production') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('statics/404', {

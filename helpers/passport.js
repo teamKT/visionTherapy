@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 passport.use(new passportLocal.Strategy({
   usernameField: 'user[username]',
   passwordField: 'user[password]',
-  passReqToCallback : true
+  passReqToCallback: true
 },(req, username, password, done) =>{
     if (req.originalUrl === '/auth/doctor-login') {
       knex('doctors').where({username}).first().then((user) =>{
@@ -35,6 +35,14 @@ passport.use(new passportLocal.Strategy({
         }
       }).catch((err) => {
         return done(err)
+      })
+    } else if (req.originalUrl === '/auth/doctorSample') {
+      knex('doctors').where('id', 99).first().then((user) => {
+        return done(null, user);
+      })
+    } else if (req.originalUrl === '/auth/patientSample') {
+      knex('patients').where('id', 99).first().then((user) => {
+        return done(null, user);
       })
     }
   }

@@ -14,9 +14,30 @@ router.get('/', function(req,res){
   res.redirect(`/doctors/${req.user.id}`)
 });
 
+// SAMPLE doctors route
+router.get('/sample', function(req,res){
+  knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
+    .where('doctors.id', 99).orderBy('childname', 'asc')
+    .then((doctor_patients) => {
+    res.format({
+      'text/html':() =>{
+        res.render('doctors/show', {doctor_patients});
+      },
+      'application/json':() =>{
+        console.log(doctor_patients)
+        res.send(doctor_patients)
+      },
+      'default': () => {
+        // log the request and respond with 406
+        res.status(406).send('Not Acceptable');
+      }
+    })
+  });
+});
 
 // VIEW doctor's dashboard
 router.get('/:id', helpers.ensureCorrectUser, function(req,res){
+  if (req.user.id === 99) res.redirect('/doctors/sample');
   knex('doctors').join('patients', 'doctors.id', 'patients.doctor_id')
     .where('doctors.id', +req.params.id).orderBy('childname', 'asc')
     .then((doctor_patients) => {
@@ -34,7 +55,7 @@ router.get('/:id', helpers.ensureCorrectUser, function(req,res){
       }
     })
   });
-})
+});
 // EDIT Doctor
 router.get('/:id/edit', helpers.ensureCorrectUser, function(req,res){
   res.render('doctors/edit', {message: req.flash('editMessage')});
@@ -47,8 +68,7 @@ router.get('/:id/ex', function(req,res){
     .join('exercises', 'exercises.id', 'plans.exercise_id')
     .where('patients.id', req.params.id)
     .then((data)=>res.json(data))
-  
-})
+});
 
 
 // DELETE Doctor
@@ -58,9 +78,9 @@ router.delete('/:id', helpers.ensureCorrectUser, function(req,res){
       req.logout();
       res.redirect('/');      
     })
-})
+});
 
-// PUT 
+// PUT Docter
 router.put('/:id', helpers.ensureCorrectUser, helpers.editCheck, function(req,res){
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
     bcrypt.hash(req.body.doctor.password, salt, function(err, hash){
@@ -71,7 +91,7 @@ router.put('/:id', helpers.ensureCorrectUser, helpers.editCheck, function(req,re
       })
     });
   });
-})
+});
 
 
 module.exports = router;

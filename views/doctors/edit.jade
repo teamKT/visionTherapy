@@ -19,11 +19,11 @@ block content
             value="#{currentUser.email}" placeholder="Enter Email")  
           p
             input.form-control.input-lg(type="password" name="doctor[password]" 
-            value="#{currentUser.password}" placeholder="Enter new Password")
+            value="" placeholder="Enter new Password")
           p
             input.btn.btn-default.push-right(type="submit" value="Submit")
             a(href="/doctors/#{currentUser.id}")
-              button.btn.btn-default Cancel
+              button.btn.btn-default(type="button") Cancel
             if (message)
               p.text-center.text-danger= message
 
